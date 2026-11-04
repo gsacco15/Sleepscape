@@ -67,14 +67,19 @@ It's shorter than the build spec on purpose:
 
 Real costs from this run: a 20 s loop is ~67 credits, an 8 s one-shot ~27, a 3 s one-shot 10. Narration estimate is ~3,600 credits for 20 segments × 2 takes (~1,800 characters).
 
+Chosen variations (picked by measurement: warmer tone, fewer spikes, steady level, clean loop seam), copied to `audio/sfx/`:
+rain_roof v3 · fire_stove v2 · wind_pines v1 · log_pop v2 · kettle v4 · drips v1 · thunder v2
+
 ## Mixer rules (`mix.py`, same as the planned Web Audio mixer)
 
+- Every clip is levelled first (narration and beds by RMS, one-shots by peak), so the gains below mean the same for any file
+- Beds get a soft peak limiter (no transient more than 12 dB above the bed), so one loud crackle can't repeat every loop
 - Beds tile with 1.5 s equal-power crossfades; rain fades in over 8 s, later beds over 6 s
 - Ambience level by phase: arrival 0.85 · wind-down 0.6 (quiet under the breathing) · journey 1.0, gliding between phases over ~4 s
 - Ducking: ambience drops 30% under narration (0.4 s attack, 1.8 s release), so it swells back in the pauses
 - SFX land at segment start + offset, equal-power panned, with 0–0.6 s random delay
 - Master drifts down 20% across the narration; final fade is a 60 s squared curve
-- Output: loudness-normalised to about −21 LUFS, MP3 192 kbps
+- Output: loudness-normalised to about −21 LUFS, limited to −3 dBFS peak, MP3 192 kbps
 
 ```bash
 python3 mix.py                 # full mix -> out/drift_concept_test.mp3
@@ -89,5 +94,6 @@ Needs Python 3 with numpy, plus ffmpeg.
 - [x] All 7 sounds generated on ElevenLabs (4 variations each); you can listen on the flow canvas
 - [x] 20 narration nodes set up on the canvas with the settings above
 - [ ] Narration not generated yet (~3,600 credits)
-- [ ] Clips not downloaded: this cloud environment's network policy blocks `elevenlabsusercontent.com`
-- [ ] Final mix not rendered
+- [x] Sound clips downloaded and best variation of each picked
+- [x] Soundscape-only preview rendered (`python3 mix.py --ambient-only`)
+- [ ] Full mix with narration

@@ -56,6 +56,49 @@ def decode(path: Path) -> np.ndarray:
     return np.frombuffer(raw, dtype=np.float32).reshape(-1, 2).copy()
 
 
+def level(clip: np.ndarray, target_db: float, mode: str = "rms") -> np.ndarray:
+    """Bring a clip to a consistent level so the gain tables mean the same thing for every file.
+    rms  -> RMS of the non-silent part hits target_db (dBFS); used for narration and beds
+    peak -> peak hits target_db; used for one-shots, whose transients vary a lot"""
+    mono = np.abs(clip).max(axis=1)
+    if mode == "peak":
+        ref = float(mono.max())
+    else:
+        loud = clip[mono > 10 ** (-50 / 20)]
+        ref = float(np.sqrt(np.mean(loud ** 2))) if len(loud) else 0.0
+    if ref <= 0:
+        return clip
+    return clip * (10 ** (target_db / 20) / ref)
+
+
+def tame(clip: np.ndarray, crest_db: float = 12.0, release_s: float = 0.08) -> np.ndarray:
+    """Soft peak limiter for ambient beds: keep crackles and drops, but stop any single
+    transient from jumping more than crest_db above the bed's own RMS (a sleeper shouldn't
+    be startled by one loud pop that repeats every loop)."""
+    rms = float(np.sqrt(np.mean(clip ** 2))) or 1e-9
+    thr = rms * 10 ** (crest_db / 20)
+    blk = 64
+    nb = int(np.ceil(len(clip) / blk))
+    env = np.abs(clip).max(axis=1)
+    env = np.pad(env, (0, nb * blk - len(env))).reshape(nb, blk).max(axis=1)
+    target = np.minimum(1.0, thr / np.maximum(env, 1e-9))
+    # 3-block lookahead so gain is already down when the transient arrives
+    look = np.minimum.reduce([np.roll(target, -k) for k in range(4)])
+    rel = 1 - np.exp(-blk / (release_s * SR))
+    g = np.empty(nb, dtype=np.float32)
+    y = 1.0
+    for i, t in enumerate(look):
+        y = t if t < y else y + rel * (t - y)
+        g[i] = y
+    gain = np.interp(np.arange(len(clip)), np.arange(nb) * blk + blk / 2, g).astype(np.float32)
+    return clip * gain[:, None]
+
+
+NARRATION_RMS_DB = -20.0
+BED_RMS_DB = -22.0
+SFX_PEAK_DB = -6.0
+
+
 def find(audio_dir: Path, sub: str, key: str):
     for name in (f"{key}.mp3", f"{key}_v1.mp3", f"{key}.wav"):
         p = audio_dir / sub / name
@@ -117,7 +160,7 @@ def build_timeline(script, audio_dir, ambient_only):
             if p is None:
                 missing.append(seg["id"])
             else:
-                clip = decode(p)
+                clip = level(decode(p), NARRATION_RMS_DB)
         # Without narration audio, stand in for its length with a reading-speed estimate
         dur = len(clip) / SR if clip is not None else max(1.5, len(seg["text"].split()) / 2.0)
         placed.append((seg, int(t * SR), clip, dur))
@@ -168,7 +211,7 @@ def main():
             if p is None:
                 print(f"  (no file for sfx '{cue['id']}', skipping)")
                 continue
-            s = decode(p)
+            s = level(decode(p), SFX_PEAK_DB, mode="peak")
             s = pan(s, cue.get("pan", 0.0)) * cue.get("volume", 0.4)
             # gentle 50 ms fades so one-shots never click
             f = min(len(s) // 2, int(0.05 * SR))
@@ -191,7 +234,7 @@ def main():
             print(f"  (no file for bed '{bid}', skipping)")
             continue
         start = bed_start.get(bid, 0)
-        loop = loop_to_length(decode(p), n - start)
+        loop = loop_to_length(level(tame(decode(p)), BED_RMS_DB), n - start)
         fade = int((INTRO_FADE_IN_S if start == 0 else BED_FADE_IN_S) * SR)
         loop[:fade] *= np.linspace(0, 1, fade, dtype=np.float32)[:, None]
         amb[start:] += loop * BED_GAIN.get(bid, 0.3)
@@ -219,7 +262,8 @@ def main():
         "drift_ambient_only.mp3" if args.ambient_only else "drift_concept_test.mp3")
     out.parent.mkdir(parents=True, exist_ok=True)
     enc = ["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(SR), "-ac", "2", "-i", "-",
-           "-af", "loudnorm=I=-21:TP=-2:LRA=11", "-ar", str(SR),
+           "-af", "loudnorm=I=-21:TP=-2:LRA=11,alimiter=limit=0.708:attack=2:release=60:level=disabled",
+           "-ar", str(SR),
            "-codec:a", "libmp3lame", "-b:a", "192k", str(out)]
     subprocess.run(enc, input=mix.astype(np.float32).tobytes(), check=True)
 
