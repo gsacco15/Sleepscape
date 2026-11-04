@@ -1,0 +1,68 @@
+{
+  "title": "Rainy Mountain Cabin",
+  "world": "A small wooden cabin high in the mountains during a slow, steady rain",
+  "wind_down_type": "breathing",
+  "voice": {
+    "name": "Theo Silk - British Deep Sleep & Calm",
+    "voice_id": "UmQN7jS1Ee8B1czsUtQh",
+    "model_id": "eleven_multilingual_v2",
+    "settings": { "stability": 0.8, "similarity_boost": 0.8, "style": 0.0, "speed": 0.85 }
+  },
+  "ambient_bed": [
+    { "id": "rain_roof", "prompt": "Gentle steady rain on a tin roof, heard from inside a wooden cabin, soft even patter", "loop": true, "duration_sec": 20 },
+    { "id": "fire_stove", "prompt": "Wood fire crackling softly inside an iron stove, close, gentle pops", "loop": true, "duration_sec": 20 },
+    { "id": "wind_pines", "prompt": "Soft wind through pine trees at night, low and distant", "loop": true, "duration_sec": 20 }
+  ],
+  "sfx_library": [
+    { "id": "log_pop", "prompt": "Single log settling in a wood stove, soft crackle and pop", "duration_sec": 3 },
+    { "id": "kettle", "prompt": "Kettle quietly simmering on a wood stove, soft bubbling hiss, no whistle", "duration_sec": 8 },
+    { "id": "drips", "prompt": "Slow water drips falling from a roof edge into a puddle", "duration_sec": 8 },
+    { "id": "thunder", "prompt": "Distant soft rolling thunder, low deep rumble, far away", "duration_sec": 8 }
+  ],
+  "segments": [
+    { "id": "A1", "phase": "arrival", "pause_after_sec": 4,
+      "text": "Welcome. Tonight, there's nowhere you need to be... and nothing you need to do. We're somewhere high in the mountains, in a small wooden cabin, while a slow rain falls outside.",
+      "ambient_change": { "add": ["rain_roof"] } },
+    { "id": "A2", "phase": "arrival", "pause_after_sec": 5,
+      "text": "The door is closed. The fire is lit. Everything here is already taken care of... so you can simply settle in, and listen." },
+
+    { "id": "W1", "phase": "wind_down", "pause_after_sec": 6,
+      "text": "Before we go any further, let the body get heavy. Let your shoulders drop, just a little. Let your jaw soften. And let whatever is beneath you take all of your weight." },
+    { "id": "W2", "phase": "wind_down", "pause_after_sec": 4, "text": "Now, a slow breath in, through the nose..." },
+    { "id": "W3", "phase": "wind_down", "pause_after_sec": 6, "text": "and a long breath out, through the mouth." },
+    { "id": "W4", "phase": "wind_down", "pause_after_sec": 4, "text": "Again. Breathing in..." },
+    { "id": "W5", "phase": "wind_down", "pause_after_sec": 7, "text": "and letting it all go." },
+    { "id": "W6", "phase": "wind_down", "pause_after_sec": 4, "text": "One more. In..." },
+    { "id": "W7", "phase": "wind_down", "pause_after_sec": 8, "text": "and out. Slowly. All the way." },
+    { "id": "W8", "phase": "wind_down", "pause_after_sec": 10,
+      "text": "Now let the breath find its own rhythm. There's nothing to control. Each breath out, a little softer... a little slower than the last." },
+    { "id": "W9", "phase": "wind_down", "pause_after_sec": 6,
+      "text": "Notice the sound of the rain... and let it carry you inside." },
+
+    { "id": "J1", "phase": "journey", "pause_after_sec": 4,
+      "text": "Inside, the cabin is warm and dim. A fire breathes quietly in the iron stove, its glow moving slowly across the wooden walls. Now and then, a log settles... with a soft pop.",
+      "ambient_change": { "add": ["fire_stove"] },
+      "sfx": [ { "id": "log_pop", "offset_sec": 11, "volume": 0.45, "pan": -0.3 } ] },
+    { "id": "J2", "phase": "journey", "pause_after_sec": 5,
+      "text": "On the roof, the rain keeps its steady rhythm. Not heavy. Not light. Just constant... a soft drumming on tin, that seems to have been going on forever." },
+    { "id": "J3", "phase": "journey", "pause_after_sec": 6,
+      "text": "Near the window, there's a deep armchair, with a wool blanket folded over its arm. The wool is thick, and a little rough... and it smells faintly of cedar, and woodsmoke." },
+    { "id": "J4", "phase": "journey", "pause_after_sec": 6,
+      "text": "On the stove, a kettle sits just off the heat... murmuring to itself... never quite ready to boil.",
+      "sfx": [ { "id": "kettle", "offset_sec": 2, "volume": 0.3, "pan": -0.4 } ] },
+    { "id": "J5", "phase": "journey", "pause_after_sec": 7,
+      "text": "Outside the glass, the pines are dark and still. Rain gathers at the edge of the roof... and drips... slowly... into the puddles below.",
+      "ambient_change": { "add": ["wind_pines"] },
+      "sfx": [ { "id": "drips", "offset_sec": 7, "volume": 0.35, "pan": 0.5 } ] },
+    { "id": "J6", "phase": "journey", "pause_after_sec": 8,
+      "text": "Far away, over the ridge, thunder rolls. Low. Unhurried. Already moving on.",
+      "sfx": [ { "id": "thunder", "offset_sec": 3, "volume": 0.35, "pan": 0.2 } ] },
+    { "id": "J7", "phase": "journey", "pause_after_sec": 9,
+      "text": "The fire glows. The rain falls. The cabin holds its warmth." },
+    { "id": "J8", "phase": "journey", "pause_after_sec": 10,
+      "text": "Nothing needs to happen here. The rain... the warmth... the dark, quiet pines..." },
+    { "id": "J9", "phase": "journey", "pause_after_sec": 0,
+      "text": "Soft rain... warm light... slow..." }
+  ],
+  "fade": { "ambient_tail_sec": 75, "fade_out_sec": 60 }
+}
