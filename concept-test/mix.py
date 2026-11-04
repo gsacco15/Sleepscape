@@ -36,7 +36,7 @@ HERE = Path(__file__).resolve().parent
 
 # Mix levels (linear gain). Tuned for a quiet, sleep-friendly balance.
 NARRATION_GAIN = 1.0
-BED_GAIN = {"rain_roof": 0.55, "fire_stove": 0.35, "wind_pines": 0.25}
+BED_GAIN = {"rain_roof": 0.30, "fire_stove": 0.16, "wind_pines": 0.12}
 PHASE_AMBIENCE = {"arrival": 0.85, "wind_down": 0.6, "journey": 1.0}
 DUCK_DEPTH = 0.30          # ambience drops 30% while the voice speaks
 DUCK_ATTACK_S = 0.4
@@ -48,9 +48,9 @@ LOOP_XFADE_S = 1.5
 SFX_MAX_JITTER_S = 0.6
 
 
-def decode(path: Path) -> np.ndarray:
-    """Decode any audio file to float32 stereo at SR via ffmpeg."""
-    cmd = ["ffmpeg", "-v", "error", "-i", str(path), "-f", "f32le",
+def decode(path: Path, af: str = None) -> np.ndarray:
+    """Decode any audio file to float32 stereo at SR via ffmpeg (optionally through an ffmpeg filter)."""
+    cmd = ["ffmpeg", "-v", "error", "-i", str(path)] + (["-af", af] if af else []) + ["-f", "f32le",
            "-acodec", "pcm_f32le", "-ac", "2", "-ar", str(SR), "-"]
     raw = subprocess.run(cmd, check=True, capture_output=True).stdout
     return np.frombuffer(raw, dtype=np.float32).reshape(-1, 2).copy()
@@ -92,6 +92,20 @@ def tame(clip: np.ndarray, crest_db: float = 12.0, release_s: float = 0.08) -> n
         g[i] = y
     gain = np.interp(np.arange(len(clip)), np.arange(nb) * blk + blk / 2, g).astype(np.float32)
     return clip * gain[:, None]
+
+
+def trim(clip: np.ndarray, floor_db: float = -45.0, margin_s: float = 0.08) -> np.ndarray:
+    """Cut leading/trailing silence from a TTS clip so the script's pause_after_sec is the real gap."""
+    hop = SR // 100
+    n = len(clip) // hop
+    if n == 0:
+        return clip
+    e = np.sqrt(np.mean(clip[:n * hop].reshape(n, hop, 2) ** 2, axis=(1, 2)))
+    on = np.where(20 * np.log10(e + 1e-9) > floor_db)[0]
+    if len(on) == 0:
+        return clip
+    m = int(margin_s * SR)
+    return clip[max(0, on[0] * hop - m): min(len(clip), (on[-1] + 1) * hop + m)]
 
 
 NARRATION_RMS_DB = -20.0
@@ -160,7 +174,7 @@ def build_timeline(script, audio_dir, ambient_only):
             if p is None:
                 missing.append(seg["id"])
             else:
-                clip = level(decode(p), NARRATION_RMS_DB)
+                clip = level(trim(decode(p)), NARRATION_RMS_DB)
         # Without narration audio, stand in for its length with a reading-speed estimate
         dur = len(clip) / SR if clip is not None else max(1.5, len(seg["text"].split()) / 2.0)
         placed.append((seg, int(t * SR), clip, dur))
@@ -234,7 +248,7 @@ def main():
             print(f"  (no file for bed '{bid}', skipping)")
             continue
         start = bed_start.get(bid, 0)
-        loop = loop_to_length(level(tame(decode(p)), BED_RMS_DB), n - start)
+        loop = loop_to_length(level(tame(decode(p, bed.get("filter"))), BED_RMS_DB), n - start)
         fade = int((INTRO_FADE_IN_S if start == 0 else BED_FADE_IN_S) * SR)
         loop[:fade] *= np.linspace(0, 1, fade, dtype=np.float32)[:, None]
         amb[start:] += loop * BED_GAIN.get(bid, 0.3)
@@ -254,15 +268,21 @@ def main():
     master[-fo:] *= np.linspace(1, 0, fo, dtype=np.float32) ** 2
     mix *= master[:, None]
 
-    # Peak-normalise to -3 dBFS before encoding, then a gentle loudness target
-    peak = float(np.max(np.abs(mix))) or 1.0
-    mix *= (10 ** (-3 / 20)) / peak
+    # One static gain for the whole track (no riding: quiet pauses must stay quiet).
+    # With narration, set the voice to ~-21 dBFS RMS; ambient-only, set the bed to ~-30.
+    if active.any():
+        ref = float(np.sqrt(np.mean(mix[active] ** 2)))
+        target = -21.0
+    else:
+        ref = float(np.sqrt(np.mean(mix[:ne] ** 2)))
+        target = -30.0
+    mix *= 10 ** (target / 20) / max(ref, 1e-9)
 
     out = Path(args.out) if args.out else HERE / "out" / (
         "drift_ambient_only.mp3" if args.ambient_only else "drift_concept_test.mp3")
     out.parent.mkdir(parents=True, exist_ok=True)
     enc = ["ffmpeg", "-v", "error", "-y", "-f", "f32le", "-ar", str(SR), "-ac", "2", "-i", "-",
-           "-af", "loudnorm=I=-21:TP=-2:LRA=11,alimiter=limit=0.708:attack=2:release=60:level=disabled",
+           "-af", "alimiter=limit=0.708:attack=2:release=60:level=disabled",
            "-ar", str(SR),
            "-codec:a", "libmp3lame", "-b:a", "192k", str(out)]
     subprocess.run(enc, input=mix.astype(np.float32).tobytes(), check=True)

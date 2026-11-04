@@ -4,30 +4,165 @@
     "url": "https://elevenlabs.io/app/flows/WXyKoOxbKI7uzeI08R9D"
   },
   "narration_nodes": {
-    "A1": "wktf68wGrlOieSSh1MxJ", "A2": "Xv3TrN5pjFZiOYJPtFoj",
-    "W1": "6PA2p6UBnf83G3odQ9JT", "W2": "n2Qj6BUXDdwJ7yu1MESO", "W3": "mNYfCalBc94TDTkcqpeM",
-    "W4": "jrT1fKfrhd0h1T3ycvF2", "W5": "m8SIkF7BnuCjsF69DqmE", "W6": "lZASpQY4eBhjiQTVEnlk",
-    "W7": "O3gAgoLxFbaQRVkU2A5b", "W8": "JtUs84MNn03OOwgM9qcw", "W9": "R7BEOnPyVIvTwiz0Y6Ws",
-    "J1": "v6jdacNnD5m2T5dh9tq4", "J2": "DWgg5V4rd3kD5dzZF1fK", "J3": "Gvp2hFBSXWKvQjMcpwxB",
-    "J4": "wNojzMZAzjh8jugtNaMK", "J5": "u0X2AkOKkfLPF3Wb9MWr", "J6": "Zbl3zbDri4XiKzeIxWKY",
-    "J7": "3Vb2qTLkftG3eUJkguHs", "J8": "6GBbxw3ZsMLdEUwg05hM", "J9": "NSQz6azRX3SrUtJgWPau"
+    "A1": "wktf68wGrlOieSSh1MxJ",
+    "A2": "Xv3TrN5pjFZiOYJPtFoj",
+    "W1": "6PA2p6UBnf83G3odQ9JT",
+    "W2": "n2Qj6BUXDdwJ7yu1MESO",
+    "W3": "mNYfCalBc94TDTkcqpeM",
+    "W4": "jrT1fKfrhd0h1T3ycvF2",
+    "W5": "m8SIkF7BnuCjsF69DqmE",
+    "W6": "lZASpQY4eBhjiQTVEnlk",
+    "W7": "O3gAgoLxFbaQRVkU2A5b",
+    "W8": "JtUs84MNn03OOwgM9qcw",
+    "W9": "R7BEOnPyVIvTwiz0Y6Ws",
+    "J1": "v6jdacNnD5m2T5dh9tq4",
+    "J2": "DWgg5V4rd3kD5dzZF1fK",
+    "J3": "Gvp2hFBSXWKvQjMcpwxB",
+    "J4": "wNojzMZAzjh8jugtNaMK",
+    "J5": "u0X2AkOKkfLPF3Wb9MWr",
+    "J6": "Zbl3zbDri4XiKzeIxWKY",
+    "J7": "3Vb2qTLkftG3eUJkguHs",
+    "J8": "6GBbxw3ZsMLdEUwg05hM",
+    "J9": "NSQz6azRX3SrUtJgWPau"
   },
-  "narration_status": "nodes created, NOT generated yet",
+  "narration_status": "generated 2026-11-04; chosen takes copied to audio/narration/",
   "sound_nodes": {
-    "rain_roof":  { "node": "PYpsLQ3udnwBjh9EAyMJ", "generations": ["70yBQE7QXf26dJZxPtZf", "YBGJR1BdC2zn0GXGqs3l", "wRfZbM8fEwPpO3TwSctK", "OyCDbWkVmtihcNHzc8g1"],
-                    "sessions": ["Lr1kPb2FzP7FWwd0uBiT", "3CZjGJwGSwRV3eVolkF4", "eII7p381r57v8CIlSahp", "lDj1AxI9SC2VV8J2Omu3"] },
-    "fire_stove": { "node": "MlHkw42mUwME8BTdCXSa", "generations": ["ZYq5EfGiJpyCvvTKC12n", "sG6R4oR8zQynzTQ416If", "JMMutxp7Vq80WSVeE5mb", "Y3UgsEDtxDp5hqT09Jpe"],
-                    "sessions": ["iMFHH0Sgyr75z20TYdMJ", "lnCCuyZwTX9t3MzyeUUQ", "psi43hA3eDMfg7xAZD0i", "cnK8vuhhoLQZWTZ1ECpU"] },
-    "wind_pines": { "node": "p46iJHuv6WxgnGWEBdqL", "generations": ["VB6hbikAHuqdtxge5tmu", "KiNnDsxtu7fELaLoshtW", "cBEwVduPjoK45RYUEKsv", "l7nHNj6fzeIsI3yVWHlJ"],
-                    "sessions": ["ckyrMSR3ZMwDzqUrgtJs", "onzKBkYElUfNxZpRzgpv", "l6QJOs2tkL7ypZHvc1jO", "xsHlogAP9FG7zrYa3tNV"] },
-    "log_pop":    { "node": "T3HaaZ7ebGuVKXfGV1ej", "generations": ["TiijZoovQb7DIqyng4Qr", "9CrXC18vkmzSrPSOzR05", "Glx6YBBYLuordLVav9AK", "LmPVDhZmwgGccVDg677K"],
-                    "sessions": ["o2q3Unp69bWeL8ZqpNDX", "g1ecJNa8ykmmUlHSfiRB", "XGrvo0A76SXmZkae2RgO", "T7YWf0yW1Riz2wlCKIwD"] },
-    "kettle":     { "node": "AZKmLZmZezspKs6gIIV4", "generations": ["Hac2uOsI5qj4oBqzZq9t", "9zrGGXh8JQWP0B2GBqAC", "vgLfmknGGC5UanlrwXGX", "lbiJvwf5215ZQbOVkaTS"],
-                    "sessions": ["yuAazQCHUNKqFajs2OAa", "4O89qxeVjhALJTqT9QqU", "l87nRRi7gKVJAjhmHxii", "3HLMEyH0MZ10XzJmwxmC"] },
-    "drips":      { "node": "cerd4uPn4DQIX6pOmuZm", "generations": ["aKTh6PMuedSaLPRzxsyy", "OGrqe0zxoFI0TxHtUYiF", "FpKxksXRchePri36D2Ds", "UQ6BNtM851kbDHRbPvYo"],
-                    "sessions": ["bHjYAN8Dk6Ug8I9gU6As", "ybQ6BWuh0o0uuFHYKUFQ", "HIYfhRhhNOQnSr24ZRnr", "fwcfRkgDzZLyMWsDyIPT"] },
-    "thunder":    { "node": "h2v1mOetXmPWIMDVCwJ4", "generations": ["HqYkGq4v88vEoirOrMFA", "bae8IrOifEamlPp3uEus", "h3v7dKISuR2rki9okqT0", "j3SHzbS5xheMjlzg07DZ"],
-                    "sessions": ["FBrYtaQzN2iLHslhEfx6", "D5K9MKJV4Z1Lg5NhQqIP", "QnL3SwHs6oIDvI3R1Fsc", "PNrgkDgimr0Z3PjeCIqp"] }
+    "rain_roof": {
+      "node": "PYpsLQ3udnwBjh9EAyMJ",
+      "generations": [
+        "70yBQE7QXf26dJZxPtZf",
+        "YBGJR1BdC2zn0GXGqs3l",
+        "wRfZbM8fEwPpO3TwSctK",
+        "OyCDbWkVmtihcNHzc8g1"
+      ],
+      "sessions": [
+        "Lr1kPb2FzP7FWwd0uBiT",
+        "3CZjGJwGSwRV3eVolkF4",
+        "eII7p381r57v8CIlSahp",
+        "lDj1AxI9SC2VV8J2Omu3"
+      ]
+    },
+    "fire_stove": {
+      "node": "MlHkw42mUwME8BTdCXSa",
+      "generations": [
+        "ZYq5EfGiJpyCvvTKC12n",
+        "sG6R4oR8zQynzTQ416If",
+        "JMMutxp7Vq80WSVeE5mb",
+        "Y3UgsEDtxDp5hqT09Jpe"
+      ],
+      "sessions": [
+        "iMFHH0Sgyr75z20TYdMJ",
+        "lnCCuyZwTX9t3MzyeUUQ",
+        "psi43hA3eDMfg7xAZD0i",
+        "cnK8vuhhoLQZWTZ1ECpU"
+      ]
+    },
+    "wind_pines": {
+      "node": "p46iJHuv6WxgnGWEBdqL",
+      "generations": [
+        "VB6hbikAHuqdtxge5tmu",
+        "KiNnDsxtu7fELaLoshtW",
+        "cBEwVduPjoK45RYUEKsv",
+        "l7nHNj6fzeIsI3yVWHlJ"
+      ],
+      "sessions": [
+        "ckyrMSR3ZMwDzqUrgtJs",
+        "onzKBkYElUfNxZpRzgpv",
+        "l6QJOs2tkL7ypZHvc1jO",
+        "xsHlogAP9FG7zrYa3tNV"
+      ]
+    },
+    "log_pop": {
+      "node": "T3HaaZ7ebGuVKXfGV1ej",
+      "generations": [
+        "TiijZoovQb7DIqyng4Qr",
+        "9CrXC18vkmzSrPSOzR05",
+        "Glx6YBBYLuordLVav9AK",
+        "LmPVDhZmwgGccVDg677K"
+      ],
+      "sessions": [
+        "o2q3Unp69bWeL8ZqpNDX",
+        "g1ecJNa8ykmmUlHSfiRB",
+        "XGrvo0A76SXmZkae2RgO",
+        "T7YWf0yW1Riz2wlCKIwD"
+      ]
+    },
+    "kettle": {
+      "node": "AZKmLZmZezspKs6gIIV4",
+      "generations": [
+        "Hac2uOsI5qj4oBqzZq9t",
+        "9zrGGXh8JQWP0B2GBqAC",
+        "vgLfmknGGC5UanlrwXGX",
+        "lbiJvwf5215ZQbOVkaTS"
+      ],
+      "sessions": [
+        "yuAazQCHUNKqFajs2OAa",
+        "4O89qxeVjhALJTqT9QqU",
+        "l87nRRi7gKVJAjhmHxii",
+        "3HLMEyH0MZ10XzJmwxmC"
+      ]
+    },
+    "drips": {
+      "node": "cerd4uPn4DQIX6pOmuZm",
+      "generations": [
+        "aKTh6PMuedSaLPRzxsyy",
+        "OGrqe0zxoFI0TxHtUYiF",
+        "FpKxksXRchePri36D2Ds",
+        "UQ6BNtM851kbDHRbPvYo"
+      ],
+      "sessions": [
+        "bHjYAN8Dk6Ug8I9gU6As",
+        "ybQ6BWuh0o0uuFHYKUFQ",
+        "HIYfhRhhNOQnSr24ZRnr",
+        "fwcfRkgDzZLyMWsDyIPT"
+      ]
+    },
+    "thunder": {
+      "node": "h2v1mOetXmPWIMDVCwJ4",
+      "generations": [
+        "HqYkGq4v88vEoirOrMFA",
+        "bae8IrOifEamlPp3uEus",
+        "h3v7dKISuR2rki9okqT0",
+        "j3SHzbS5xheMjlzg07DZ"
+      ],
+      "sessions": [
+        "FBrYtaQzN2iLHslhEfx6",
+        "D5K9MKJV4Z1Lg5NhQqIP",
+        "QnL3SwHs6oIDvI3R1Fsc",
+        "PNrgkDgimr0Z3PjeCIqp"
+      ]
+    }
   },
-  "sound_status": "all 28 variations generated (4 per sound)"
+  "sound_status": "all 28 variations generated (4 per sound)",
+  "chosen_narration_takes": {
+    "A1": 2,
+    "A2": 1,
+    "W1": 1,
+    "W2": 1,
+    "W3": 2,
+    "W4": 1,
+    "W5": 2,
+    "W6": 1,
+    "W7": 2,
+    "W8": 2,
+    "W9": 2,
+    "J1": 1,
+    "J2": 2,
+    "J3": 1,
+    "J4": 2,
+    "J5": 2,
+    "J6": 1,
+    "J7": 2,
+    "J8": 1,
+    "J9": 1
+  },
+  "chosen_sound_variations": {
+    "rain_roof": 4,
+    "fire_stove": 2,
+    "wind_pines": 1,
+    "log_pop": 2,
+    "kettle": 4,
+    "drips": 1,
+    "thunder": 2
+  }
 }

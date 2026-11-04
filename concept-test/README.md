@@ -68,10 +68,11 @@ It's shorter than the build spec on purpose:
 Real costs from this run: a 20 s loop is ~67 credits, an 8 s one-shot ~27, a 3 s one-shot 10. Narration estimate is ~3,600 credits for 20 segments × 2 takes (~1,800 characters).
 
 Chosen variations (picked by measurement: warmer tone, fewer spikes, steady level, clean loop seam), copied to `audio/sfx/`:
-rain_roof v3 · fire_stove v2 · wind_pines v1 · log_pop v2 · kettle v4 · drips v1 · thunder v2
+rain_roof v4 (sparsest drops, ~11 hits/s vs 22 for v3; low-passed at 4.5 kHz) · fire_stove v2 · wind_pines v1 · log_pop v2 · kettle v4 · drips v1 · thunder v2
 
 ## Mixer rules (`mix.py`, same as the planned Web Audio mixer)
 
+- Voice clips have their leading/trailing silence trimmed, so each pause is exactly `pause_after_sec`
 - Every clip is levelled first (narration and beds by RMS, one-shots by peak), so the gains below mean the same for any file
 - Beds get a soft peak limiter (no transient more than 12 dB above the bed), so one loud crackle can't repeat every loop
 - Beds tile with 1.5 s equal-power crossfades; rain fades in over 8 s, later beds over 6 s
@@ -79,7 +80,8 @@ rain_roof v3 · fire_stove v2 · wind_pines v1 · log_pop v2 · kettle v4 · dri
 - Ducking: ambience drops 30% under narration (0.4 s attack, 1.8 s release), so it swells back in the pauses
 - SFX land at segment start + offset, equal-power panned, with 0–0.6 s random delay
 - Master drifts down 20% across the narration; final fade is a 60 s squared curve
-- Output: loudness-normalised to about −21 LUFS, limited to −3 dBFS peak, MP3 192 kbps
+- Bed levels: rain 0.30 · fire 0.16 · wind 0.12. Measured result: rain alone sits ~18 dB under the voice, the full journey ambience ~13 dB under
+- Output: one static gain (voice at ~−21 dBFS RMS, no dynamic loudness riding, so pauses stay quiet), limited to −3 dBFS peak, MP3 192 kbps
 
 ```bash
 python3 mix.py                 # full mix -> out/drift_concept_test.mp3
@@ -93,7 +95,8 @@ Needs Python 3 with numpy, plus ffmpeg.
 - [x] Script, sound prompts, voice settings
 - [x] All 7 sounds generated on ElevenLabs (4 variations each); you can listen on the flow canvas
 - [x] 20 narration nodes set up on the canvas with the settings above
-- [ ] Narration not generated yet (~3,600 credits)
+- [x] Narration generated (2 takes per line; the slower clean take kept in `audio/narration/`)
 - [x] Sound clips downloaded and best variation of each picked
 - [x] Soundscape-only preview rendered (`python3 mix.py --ambient-only`)
-- [ ] Full mix with narration
+- [x] Full mix with narration: `out/drift_concept_test.mp3` (6.8 min; voice ends at 5.6 min)
+- [x] Round 1 feedback: rain quieter and sparser
