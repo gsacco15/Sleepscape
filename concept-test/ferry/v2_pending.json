@@ -1,0 +1,22 @@
+{
+  "flow_id": "K3azf3VbZYmoOKm16w3h",
+  "status": "Blocked: ElevenLabs account out of credits (10,000 quota used, 12 left) on 2026-11-04",
+  "voice": "Kristen - Calm Comforting Meditation (KGZeK6FsnWQdrkDHnDNA), speed 0.88",
+  "to_run": {
+    "music_pad": "49IlwQnCS6ajoHahqEdF",
+    "narration": {
+      "A1": "LIAKALnjevqYy8RxAKBq", "A2": "yF6uxs1Tw5FXImMRyFgL",
+      "W1": "aeGXwLASNCZmlOpT0vp3", "W2": "dhhFvhPM2rAfKrzG3VVz", "W3": "DhUWzxQvfRQmI8XLKoKI",
+      "W4": "4lSNpezVkLajJvRgsCia", "W5": "CReJNsQQUa7rs5QU6HSo", "W6": "I5tdpK6AYq9tCxZZuKeZ",
+      "W7": "ogplHxf9jk2EgrWFkGbs",
+      "J1": "i0stRBtc4QvQ2xcGF7VB", "J2": "fay3HAKTXcs3qZLyiPDz", "J3": "xjnI0ENvJkYfAHsTkhFP",
+      "J4": "TySjScMrc1VscfZJKPcV", "J5": "qqmirsyYiErNZCv048rC", "J6": "SHbSCKfQfQhllHs07C3F",
+      "J7": "LjfHVKHykShTtHsDKMqT", "J8": "T0Ion1B1QV1qZyMu5XLq", "J9": "acjineyjcWYW0FwOVgDI",
+      "J10": "KUKgHUYOIwq5WIrBDJqA"
+    }
+  },
+  "estimated_credits": { "narration_2_takes": 4300, "music_pad_4_variations": 9000, "music_pad_1_variation": 2250 },
+  "done": {
+    "harbor_calm": "PIg5wuKchKgrPNm3jPdp", "ferry_drone": "tOZL9TjvqWe1QCNEfRDj", "deck_air": "gY5943OOOC79eX63KNvV"
+  }
+}

@@ -1,60 +1,59 @@
 {
-  "title": "Foggy Ferry",
+  "title": "The Island Queen",
   "type": "memory_journey",
   "memory_seed": "A foggy day on the ferry from Martha's Vineyard to Nantucket. Leaving one dock, a short trip to the other. The sounds of the ferry dock, the other boats. A relaxing vibe and journey.",
   "wind_down_type": "body_scan",
   "design_note": "The journey never arrives. The other island stays somewhere ahead in the fog, so there is no ending to wait for.",
   "voice": {
-    "name": "Serena - Calm Meditation & Sleep Voice",
-    "voice_id": "X6keTmExe0nzB4g1Kfno",
+    "name": "Kristen - Calm Comforting Meditation",
+    "voice_id": "KGZeK6FsnWQdrkDHnDNA",
     "model_id": "eleven_multilingual_v2",
     "settings": {
       "stability": 0.8,
       "similarity_boost": 0.8,
       "style": 0.0,
-      "speed": 0.85
+      "speed": 0.88
     }
   },
   "ambient_bed": [
     {
-      "id": "harbor_water",
-      "prompt": "Gentle harbor water lapping against wooden dock pilings, calm, close",
-      "loop": true,
-      "duration_sec": 20,
-      "gain": 0.22
-    },
-    {
-      "id": "ferry_engine",
-      "prompt": "Low steady ferry engine hum heard from the open deck, deep soft rumble",
-      "loop": true,
-      "duration_sec": 20,
-      "gain": 0.1,
-      "filter": "lowpass=f=1800"
-    },
-    {
-      "id": "bow_wash",
-      "prompt": "Soft steady water rushing past the hull of a moving boat, gentle wash",
-      "loop": true,
-      "duration_sec": 20,
-      "gain": 0.17,
+      "id": "music_pad",
+      "type": "music",
+      "prompt": "Slow ambient drone with warm soft synth pads and gentle low strings, no percussion, no melody, no beat. Very calm, dreamy and spacious, evolving slowly and quietly.",
+      "duration_sec": 150,
+      "gain": 0.2,
       "filter": "lowpass=f=5000"
+    },
+    {
+      "id": "harbor_calm",
+      "prompt": "Quiet harbor morning ambience in fog, very still air, faint far-off water, soft and calm",
+      "loop": true,
+      "duration_sec": 30,
+      "gain": 0.14,
+      "filter": "lowpass=f=3500"
+    },
+    {
+      "id": "ferry_drone",
+      "prompt": "Deep smooth engine drone of a large car ferry heard from inside the passenger cabin, steady, muffled and calm",
+      "loop": true,
+      "duration_sec": 30,
+      "gain": 0.12,
+      "filter": "lowpass=f=900"
+    },
+    {
+      "id": "deck_air",
+      "prompt": "Upper deck of a large ferry at sea in thick fog, soft steady breeze, distant deep engine rumble, calm and quiet",
+      "loop": true,
+      "duration_sec": 30,
+      "gain": 0.1,
+      "filter": "lowpass=f=3000"
     }
   ],
   "sfx_library": [
     {
-      "id": "rope_creak",
-      "prompt": "Thick mooring rope creaking against a wooden dock cleat, slow and soft",
-      "duration_sec": 5
-    },
-    {
       "id": "halyards",
       "prompt": "Sailboat rigging gently clinking against masts in a quiet harbor",
       "duration_sec": 8
-    },
-    {
-      "id": "gulls",
-      "prompt": "Two distant seagulls calling over water, soft and far away",
-      "duration_sec": 6
     },
     {
       "id": "ferry_horn",
@@ -77,10 +76,11 @@
       "id": "A1",
       "phase": "arrival",
       "pause_after_sec": 4,
-      "text": "Tonight, we're going back to a soft grey morning by the sea. A ferry dock on the Vineyard, wrapped in fog... and a short, easy crossing to another island. There's nothing to plan. The trip takes care of itself.",
+      "text": "Tonight, we're going back to a soft grey morning by the sea. A quiet dock on the Vineyard, wrapped in fog... and the Island Queen, waiting to carry you across. There's nothing to plan. The trip takes care of itself.",
       "ambient_change": {
         "add": [
-          "harbor_water"
+          "music_pad",
+          "harbor_calm"
         ]
       }
     },
@@ -92,8 +92,8 @@
       "sfx": [
         {
           "id": "halyards",
-          "offset_sec": 3,
-          "volume": 0.22,
+          "offset_sec": 4,
+          "volume": 0.1,
           "pan": 0.5
         }
       ]
@@ -144,31 +144,23 @@
       "id": "J1",
       "phase": "journey",
       "pause_after_sec": 4,
-      "text": "The ferry waits at the end of the dock, white and patient, its engine humming low. Thick lines creak against the wooden cleats, as the boat leans, ever so slightly, into the tide.",
+      "text": "The Island Queen rests at the end of the dock, white and patient. Somewhere deep inside her, the engines hum... low and steady, like a slow heartbeat.",
       "ambient_change": {
         "add": [
-          "ferry_engine"
+          "ferry_drone"
         ]
-      },
-      "sfx": [
-        {
-          "id": "rope_creak",
-          "offset_sec": 9,
-          "volume": 0.35,
-          "pan": -0.4
-        }
-      ]
+      }
     },
     {
       "id": "J2",
       "phase": "journey",
       "pause_after_sec": 5,
-      "text": "Across the harbor, sailboats rest on their moorings. Their rigging clinks softly against the masts... a quiet, uneven music.",
+      "text": "Across the harbor, sailboats sleep on their moorings. Their rigging chimes softly, now and then... and then goes quiet again.",
       "sfx": [
         {
           "id": "halyards",
-          "offset_sec": 6,
-          "volume": 0.3,
+          "offset_sec": 5,
+          "volume": 0.1,
           "pan": 0.45
         }
       ]
@@ -177,15 +169,7 @@
       "id": "J3",
       "phase": "journey",
       "pause_after_sec": 6,
-      "text": "You step aboard, and find a bench along the rail. The wood is damp with mist, and cool through your clothes. Somewhere above, a gull calls... and another answers.",
-      "sfx": [
-        {
-          "id": "gulls",
-          "offset_sec": 11,
-          "volume": 0.25,
-          "pan": 0.3
-        }
-      ]
+      "text": "You step aboard, and climb to the upper deck. You find a bench by the rail, the wood damp with mist, and cool through your clothes."
     },
     {
       "id": "J4",
@@ -194,17 +178,17 @@
       "text": "A deep horn sounds, long and low, softened by the fog. And the dock slides gently away.",
       "ambient_change": {
         "add": [
-          "bow_wash"
+          "deck_air"
         ],
         "remove": [
-          "harbor_water"
+          "harbor_calm"
         ]
       },
       "sfx": [
         {
           "id": "ferry_horn",
           "offset_sec": 1,
-          "volume": 0.3,
+          "volume": 0.13,
           "pan": 0.0
         }
       ]
@@ -219,19 +203,19 @@
       "id": "J6",
       "phase": "journey",
       "pause_after_sec": 7,
-      "text": "The air is cool and damp on your face. It smells of salt... and seaweed... and the warm, faint breath of the engine below."
+      "text": "The deck hums beneath you, a deep, steady feeling, more felt than heard. The air is cool and damp. It smells of salt... and the open sea."
     },
     {
       "id": "J7",
       "phase": "journey",
       "pause_after_sec": 8,
-      "text": "Off to one side, a bell buoy rocks on the swell, ringing slowly... once... and again... far away.",
+      "text": "Far off to one side, a bell buoy rings... once... and again... and fades into the fog.",
       "sfx": [
         {
           "id": "bell_buoy",
-          "offset_sec": 5,
-          "volume": 0.28,
-          "pan": -0.55
+          "offset_sec": 4,
+          "volume": 0.12,
+          "pan": -0.5
         }
       ]
     },
@@ -239,18 +223,18 @@
       "id": "J8",
       "phase": "journey",
       "pause_after_sec": 9,
-      "text": "Water hushes along the hull. The deck hums beneath you. Somewhere ahead, the other island waits... and there's no hurry to reach it."
+      "text": "There's nothing to see but soft grey light. Nothing to do but sit... and drift. Somewhere ahead, the other island waits... and there's no hurry to reach it."
     },
     {
       "id": "J9",
       "phase": "journey",
       "pause_after_sec": 10,
-      "text": "A foghorn, somewhere far off... the slow wash of the wake... soft grey light...",
+      "text": "A foghorn, somewhere far away... the low hum of the engines... soft grey light...",
       "sfx": [
         {
           "id": "foghorn",
           "offset_sec": 0.5,
-          "volume": 0.22,
+          "volume": 0.1,
           "pan": 0.35
         }
       ]
@@ -259,11 +243,13 @@
       "id": "J10",
       "phase": "journey",
       "pause_after_sec": 0,
-      "text": "Fog... and water... and the gentle hum..."
+      "text": "The Island Queen... the fog... and the gentle hum..."
     }
   ],
   "fade": {
     "ambient_tail_sec": 75,
     "fade_out_sec": 60
-  }
+  },
+  "version": 2,
+  "feedback_v1": "Too busy and annoying; water hitting the hull on a loop; engine too loud; wanted calmer, ambient, chill vibes; didn't like Serena's voice."
 }
