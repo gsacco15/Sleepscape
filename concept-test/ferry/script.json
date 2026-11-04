@@ -5,15 +5,16 @@
   "wind_down_type": "body_scan",
   "design_note": "The journey never arrives. The other island stays somewhere ahead in the fog, so there is no ending to wait for.",
   "voice": {
-    "name": "Kristen - Calm Comforting Meditation",
-    "voice_id": "KGZeK6FsnWQdrkDHnDNA",
+    "name": "Serena - Calm Meditation & Sleep Voice",
+    "voice_id": "X6keTmExe0nzB4g1Kfno",
     "model_id": "eleven_multilingual_v2",
     "settings": {
       "stability": 0.8,
       "similarity_boost": 0.8,
       "style": 0.0,
-      "speed": 0.88
-    }
+      "speed": 0.85
+    },
+    "note": "Round-1 Serena takes reused because the ElevenLabs account is out of credits; Kristen (KGZeK6FsnWQdrkDHnDNA) is set up in v2_pending.json"
   },
   "ambient_bed": [
     {
@@ -73,6 +74,18 @@
     {
       "id": "far_horn",
       "source": "round-1 ferry_horn v2, low-passed with a long echo: another boat far off in the fog"
+    },
+    {
+      "id": "far_horn_b",
+      "source": "round-1 ferry_horn v1, pitched down 6%, low-passed, long echo"
+    },
+    {
+      "id": "far_horn_c",
+      "source": "round-1 ferry_horn v2, pitched up 5%, low-passed, long echo"
+    },
+    {
+      "id": "gulls",
+      "source": "round-1 gulls v1"
     }
   ],
   "segments": [
@@ -80,7 +93,7 @@
       "id": "A1",
       "phase": "arrival",
       "pause_after_sec": 4,
-      "text": "Tonight, we're going back to a soft grey morning by the sea. A quiet dock on the Vineyard, wrapped in fog... and the Island Queen, waiting to carry you across. There's nothing to plan. The trip takes care of itself.",
+      "text": "Tonight, we're going back to a soft grey morning by the sea. A ferry dock on the Vineyard, wrapped in fog... and a short, easy crossing to another island. There's nothing to plan. The trip takes care of itself.",
       "ambient_change": {
         "add": [
           "music_pad",
@@ -99,6 +112,12 @@
           "offset_sec": 4,
           "volume": 0.1,
           "pan": 0.5
+        },
+        {
+          "id": "far_horn_b",
+          "offset_sec": 15.6,
+          "volume": 0.12,
+          "pan": -0.5
         }
       ]
     },
@@ -118,7 +137,15 @@
       "id": "W3",
       "phase": "wind_down",
       "pause_after_sec": 4,
-      "text": "Down through the neck... and into the shoulders. Let them drop, away from your ears."
+      "text": "Down through the neck... and into the shoulders. Let them drop, away from your ears.",
+      "sfx": [
+        {
+          "id": "far_horn_c",
+          "offset_sec": 16.1,
+          "volume": 0.09,
+          "pan": 0.6
+        }
+      ]
     },
     {
       "id": "W4",
@@ -136,7 +163,15 @@
       "id": "W6",
       "phase": "wind_down",
       "pause_after_sec": 6,
-      "text": "Your belly softens. Your hips settle. Your legs grow heavy... all the way down, to your feet."
+      "text": "Your belly softens. Your hips settle. Your legs grow heavy... all the way down, to your feet.",
+      "sfx": [
+        {
+          "id": "far_horn",
+          "offset_sec": 18.4,
+          "volume": 0.09,
+          "pan": -0.4
+        }
+      ]
     },
     {
       "id": "W7",
@@ -148,7 +183,7 @@
       "id": "J1",
       "phase": "journey",
       "pause_after_sec": 4,
-      "text": "The Island Queen rests at the end of the dock, white and patient. Somewhere deep inside her, the engines hum... low and steady, like a slow heartbeat.",
+      "text": "The ferry waits at the end of the dock, white and patient, its engine humming low. Thick lines creak against the wooden cleats, as the boat leans, ever so slightly, into the tide.",
       "ambient_change": {
         "add": [
           "ferry_drone"
@@ -159,13 +194,19 @@
       "id": "J2",
       "phase": "journey",
       "pause_after_sec": 5,
-      "text": "Across the harbor, sailboats sleep on their moorings. Their rigging chimes softly, now and then... and then goes quiet again.",
+      "text": "Across the harbor, sailboats rest on their moorings. Their rigging clinks softly against the masts... a quiet, uneven music.",
       "sfx": [
         {
           "id": "halyards",
           "offset_sec": 5,
-          "volume": 0.1,
+          "volume": 0.12,
           "pan": 0.45
+        },
+        {
+          "id": "far_horn_b",
+          "offset_sec": 17.5,
+          "volume": 0.12,
+          "pan": 0.5
         }
       ]
     },
@@ -173,7 +214,15 @@
       "id": "J3",
       "phase": "journey",
       "pause_after_sec": 6,
-      "text": "You step aboard, and climb to the upper deck. You find a bench by the rail, the wood damp with mist, and cool through your clothes."
+      "text": "You step aboard, and find a bench along the rail. The wood is damp with mist, and cool through your clothes. Somewhere above, a gull calls... and another answers.",
+      "sfx": [
+        {
+          "id": "gulls",
+          "offset_sec": 15.5,
+          "volume": 0.06,
+          "pan": 0.3
+        }
+      ]
     },
     {
       "id": "J4",
@@ -201,23 +250,31 @@
       "id": "J5",
       "phase": "journey",
       "pause_after_sec": 7,
-      "text": "The town fades first. Grey shingled houses... a white steeple... then only soft white, in every direction."
+      "text": "The town fades first. Grey shingled houses... a white steeple... then only soft white, in every direction.",
+      "sfx": [
+        {
+          "id": "far_horn_c",
+          "offset_sec": 17.2,
+          "volume": 0.11,
+          "pan": -0.6
+        }
+      ]
     },
     {
       "id": "J6",
       "phase": "journey",
       "pause_after_sec": 7,
-      "text": "The deck hums beneath you, a deep, steady feeling, more felt than heard. The air is cool and damp. It smells of salt... and the open sea."
+      "text": "The air is cool and damp on your face. It smells of salt... and seaweed... and the warm, faint breath of the engine below."
     },
     {
       "id": "J7",
       "phase": "journey",
       "pause_after_sec": 8,
-      "text": "Far off to one side, a bell buoy rings... once... and again... and fades into the fog.",
+      "text": "Off to one side, a bell buoy rocks on the swell, ringing slowly... once... and again... far away.",
       "sfx": [
         {
           "id": "bell_buoy",
-          "offset_sec": 4,
+          "offset_sec": 5,
           "volume": 0.12,
           "pan": -0.5
         }
@@ -227,12 +284,13 @@
       "id": "J8",
       "phase": "journey",
       "pause_after_sec": 9,
-      "text": "There's nothing to see but soft grey light. Nothing to do but sit... and drift. Somewhere ahead, the other island waits... and there's no hurry to reach it.",
+      "text": "The deck hums beneath you. Somewhere ahead, the other island waits... and there's no hurry to reach it.",
+      "edit_note": "'Water hushes along the hull.' cut out of the take at 2.98 s",
       "sfx": [
         {
           "id": "far_horn",
-          "offset_sec": 15,
-          "volume": 0.09,
+          "offset_sec": 9.8,
+          "volume": 0.12,
           "pan": -0.6
         }
       ]
@@ -241,7 +299,7 @@
       "id": "J9",
       "phase": "journey",
       "pause_after_sec": 10,
-      "text": "A foghorn, somewhere far away... the low hum of the engines... soft grey light...",
+      "text": "A foghorn, somewhere far off... the slow wash of the wake... soft grey light...",
       "sfx": [
         {
           "id": "foghorn",
@@ -255,15 +313,30 @@
       "id": "J10",
       "phase": "journey",
       "pause_after_sec": 0,
-      "text": "The Island Queen... the fog... and the gentle hum..."
+      "text": "Fog... and water... and the gentle hum...",
+      "sfx": [
+        {
+          "id": "far_horn_b",
+          "offset_sec": 20,
+          "volume": 0.1,
+          "pan": 0.4
+        },
+        {
+          "id": "far_horn_c",
+          "offset_sec": 35,
+          "volume": 0.08,
+          "pan": -0.3
+        }
+      ]
     }
   ],
   "fade": {
     "ambient_tail_sec": 75,
     "fade_out_sec": 60
   },
-  "version": 2,
+  "version": "2b",
   "feedback_v1": "Too busy and annoying; water hitting the hull on a loop; engine too loud; wanted calmer, ambient, chill vibes; didn't like Serena's voice.",
   "feedback_round2": "Up on the top deck the water should feel far below; harbor sounds and horns are nice.",
-  "feedback_round3": "Water below is annoying: removed. Finish it."
+  "feedback_round3": "Water below is annoying: removed. Finish it.",
+  "feedback_round4": "Use the old voice; add more very soft boat horns throughout."
 }
