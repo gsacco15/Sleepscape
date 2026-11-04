@@ -47,6 +47,13 @@
       "duration_sec": 30,
       "gain": 0.1,
       "filter": "lowpass=f=3000"
+    },
+    {
+      "id": "sea_below",
+      "source": "reuses round-1 hull-wash clip (bow_wash v1), heavily muffled",
+      "loop": true,
+      "gain": 0.07,
+      "filter": "lowpass=f=650,highpass=f=90"
     }
   ],
   "sfx_library": [
@@ -69,6 +76,10 @@
       "id": "foghorn",
       "prompt": "Distant lighthouse foghorn across the sea, one low soft note",
       "duration_sec": 7
+    },
+    {
+      "id": "far_horn",
+      "source": "round-1 ferry_horn v2, low-passed with a long echo: another boat far off in the fog"
     }
   ],
   "segments": [
@@ -178,7 +189,8 @@
       "text": "A deep horn sounds, long and low, softened by the fog. And the dock slides gently away.",
       "ambient_change": {
         "add": [
-          "deck_air"
+          "deck_air",
+          "sea_below"
         ],
         "remove": [
           "harbor_calm"
@@ -223,7 +235,15 @@
       "id": "J8",
       "phase": "journey",
       "pause_after_sec": 9,
-      "text": "There's nothing to see but soft grey light. Nothing to do but sit... and drift. Somewhere ahead, the other island waits... and there's no hurry to reach it."
+      "text": "There's nothing to see but soft grey light. Nothing to do but sit... and drift. Somewhere ahead, the other island waits... and there's no hurry to reach it.",
+      "sfx": [
+        {
+          "id": "far_horn",
+          "offset_sec": 15,
+          "volume": 0.09,
+          "pan": -0.6
+        }
+      ]
     },
     {
       "id": "J9",
@@ -251,5 +271,6 @@
     "fade_out_sec": 60
   },
   "version": 2,
-  "feedback_v1": "Too busy and annoying; water hitting the hull on a loop; engine too loud; wanted calmer, ambient, chill vibes; didn't like Serena's voice."
+  "feedback_v1": "Too busy and annoying; water hitting the hull on a loop; engine too loud; wanted calmer, ambient, chill vibes; didn't like Serena's voice.",
+  "feedback_round2": "Up on the top deck the water should feel far below; harbor sounds and horns are nice."
 }
