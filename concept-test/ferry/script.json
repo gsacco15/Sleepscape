@@ -403,5 +403,9 @@
   "feedback_round2": "Up on the top deck the water should feel far below; harbor sounds and horns are nice.",
   "feedback_round3": "Water below is annoying: removed. Finish it.",
   "feedback_round4": "Use the old voice; add more very soft boat horns throughout.",
-  "feedback_round5": "More gulls, like a normal harbor."
+  "feedback_round5": "More gulls, like a normal harbor.",
+  "mix": {
+    "voice_gain_db": -3.0
+  },
+  "feedback_round6": "Voice a little lower."
 }

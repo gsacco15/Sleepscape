@@ -265,7 +265,11 @@ def main():
     duck = 1 - DUCK_DEPTH * smooth_envelope(active, DUCK_ATTACK_S, DUCK_RELEASE_S)
     amb *= (duck * phase_gain)[:, None]
 
-    mix = voice + amb + sfx_bus
+    # voice_gain_db (script "mix" block) moves only the voice; the level reference below
+    # is taken from the un-adjusted mix, so the background keeps its absolute level.
+    voice_gain = 10 ** (script.get("mix", {}).get("voice_gain_db", 0.0) / 20)
+    mix_ref = voice + amb + sfx_bus
+    mix = voice * voice_gain + amb + sfx_bus
 
     # Master drift: 1.0 -> 0.8 across the narration, then hold; final fade-out
     ne = int(narration_end_s * SR)
@@ -275,14 +279,15 @@ def main():
     fo = int(fade_out * SR)
     master[-fo:] *= np.linspace(1, 0, fo, dtype=np.float32) ** 2
     mix *= master[:, None]
+    mix_ref *= master[:, None]
 
     # One static gain for the whole track (no riding: quiet pauses must stay quiet).
     # With narration, set the voice to ~-21 dBFS RMS; ambient-only, set the bed to ~-30.
     if active.any():
-        ref = float(np.sqrt(np.mean(mix[active] ** 2)))
+        ref = float(np.sqrt(np.mean(mix_ref[active] ** 2)))
         target = -21.0
     else:
-        ref = float(np.sqrt(np.mean(mix[:ne] ** 2)))
+        ref = float(np.sqrt(np.mean(mix_ref[:ne] ** 2)))
         target = -30.0
     mix *= 10 ** (target / 20) / max(ref, 1e-9)
 
