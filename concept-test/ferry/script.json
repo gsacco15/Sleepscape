@@ -86,6 +86,18 @@
     {
       "id": "gulls",
       "source": "round-1 gulls v1"
+    },
+    {
+      "id": "gull_a",
+      "source": "gulls v1, low-passed, light echo"
+    },
+    {
+      "id": "gull_b",
+      "source": "gulls v2, pitched down 3%, low-passed, echo"
+    },
+    {
+      "id": "gull_c",
+      "source": "gulls v1, pitched up 4%, first 4.5 s, low-passed, echo"
     }
   ],
   "segments": [
@@ -99,7 +111,15 @@
           "music_pad",
           "harbor_calm"
         ]
-      }
+      },
+      "sfx": [
+        {
+          "id": "gull_a",
+          "offset_sec": 23.8,
+          "volume": 0.1,
+          "pan": 0.5
+        }
+      ]
     },
     {
       "id": "A2",
@@ -131,7 +151,15 @@
       "id": "W2",
       "phase": "wind_down",
       "pause_after_sec": 4,
-      "text": "Let that softness move down, over your forehead... your eyes... your jaw. Let the jaw hang a little loose."
+      "text": "Let that softness move down, over your forehead... your eyes... your jaw. Let the jaw hang a little loose.",
+      "sfx": [
+        {
+          "id": "gull_b",
+          "offset_sec": 19.0,
+          "volume": 0.07,
+          "pan": -0.6
+        }
+      ]
     },
     {
       "id": "W3",
@@ -157,7 +185,15 @@
       "id": "W5",
       "phase": "wind_down",
       "pause_after_sec": 5,
-      "text": "Let your chest rise and fall on its own... like a boat, on a gentle swell."
+      "text": "Let your chest rise and fall on its own... like a boat, on a gentle swell.",
+      "sfx": [
+        {
+          "id": "gull_c",
+          "offset_sec": 12.9,
+          "volume": 0.03,
+          "pan": 0.4
+        }
+      ]
     },
     {
       "id": "W6",
@@ -188,7 +224,15 @@
         "add": [
           "ferry_drone"
         ]
-      }
+      },
+      "sfx": [
+        {
+          "id": "gull_a",
+          "offset_sec": 24.0,
+          "volume": 0.16,
+          "pan": -0.4
+        }
+      ]
     },
     {
       "id": "J2",
@@ -218,9 +262,15 @@
       "sfx": [
         {
           "id": "gulls",
-          "offset_sec": 15.5,
-          "volume": 0.06,
+          "offset_sec": 21.2,
+          "volume": 0.12,
           "pan": 0.3
+        },
+        {
+          "id": "gull_b",
+          "offset_sec": 23.5,
+          "volume": 0.1,
+          "pan": -0.5
         }
       ]
     },
@@ -243,6 +293,12 @@
           "offset_sec": 1,
           "volume": 0.13,
           "pan": 0.0
+        },
+        {
+          "id": "gull_c",
+          "offset_sec": 12.2,
+          "volume": 0.14,
+          "pan": 0.6
         }
       ]
     },
@@ -264,7 +320,15 @@
       "id": "J6",
       "phase": "journey",
       "pause_after_sec": 7,
-      "text": "The air is cool and damp on your face. It smells of salt... and seaweed... and the warm, faint breath of the engine below."
+      "text": "The air is cool and damp on your face. It smells of salt... and seaweed... and the warm, faint breath of the engine below.",
+      "sfx": [
+        {
+          "id": "gull_a",
+          "offset_sec": 20.0,
+          "volume": 0.07,
+          "pan": 0.3
+        }
+      ]
     },
     {
       "id": "J7",
@@ -338,5 +402,6 @@
   "feedback_v1": "Too busy and annoying; water hitting the hull on a loop; engine too loud; wanted calmer, ambient, chill vibes; didn't like Serena's voice.",
   "feedback_round2": "Up on the top deck the water should feel far below; harbor sounds and horns are nice.",
   "feedback_round3": "Water below is annoying: removed. Finish it.",
-  "feedback_round4": "Use the old voice; add more very soft boat horns throughout."
+  "feedback_round4": "Use the old voice; add more very soft boat horns throughout.",
+  "feedback_round5": "More gulls, like a normal harbor."
 }
