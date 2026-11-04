@@ -42,6 +42,7 @@ DUCK_DEPTH = 0.30          # ambience drops 30% while the voice speaks
 DUCK_ATTACK_S = 0.4
 DUCK_RELEASE_S = 1.8
 BED_FADE_IN_S = 6.0
+BED_FADE_OUT_S = 12.0
 INTRO_FADE_IN_S = 8.0
 MASTER_DRIFT = 0.20        # master ends 20% lower than it starts
 LOOP_XFADE_S = 1.5
@@ -211,11 +212,13 @@ def main():
 
     # Phase-dependent ambience level and bed start times
     phase_gain = np.ones(n, dtype=np.float32)
-    bed_start = {}
+    bed_start, bed_stop = {}, {}
     for seg, start, clip, dur in placed:
         phase_gain[start:] = PHASE_AMBIENCE.get(seg["phase"], 1.0)
         for bed in seg.get("ambient_change", {}).get("add", []):
             bed_start.setdefault(bed, start)
+        for bed in seg.get("ambient_change", {}).get("remove", []):
+            bed_stop.setdefault(bed, start)
         if clip is not None:
             end = min(n, start + len(clip))
             voice[start:end] += clip[:end - start] * NARRATION_GAIN
@@ -251,7 +254,12 @@ def main():
         loop = loop_to_length(level(tame(decode(p, bed.get("filter"))), BED_RMS_DB), n - start)
         fade = int((INTRO_FADE_IN_S if start == 0 else BED_FADE_IN_S) * SR)
         loop[:fade] *= np.linspace(0, 1, fade, dtype=np.float32)[:, None]
-        amb[start:] += loop * BED_GAIN.get(bid, 0.3)
+        if bid in bed_stop:  # "remove": slow fade-out, then silence
+            s0 = max(0, bed_stop[bid] - start)
+            fo = min(int(BED_FADE_OUT_S * SR), len(loop) - s0)
+            loop[s0:s0 + fo] *= np.linspace(1, 0, fo, dtype=np.float32)[:, None] ** 2
+            loop[s0 + fo:] = 0
+        amb[start:] += loop * bed.get("gain", BED_GAIN.get(bid, 0.3))
 
     # Ducking: ambience dips while the voice speaks, swells back in the pauses
     duck = 1 - DUCK_DEPTH * smooth_envelope(active, DUCK_ATTACK_S, DUCK_RELEASE_S)

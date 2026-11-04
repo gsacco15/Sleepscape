@@ -100,3 +100,25 @@ Needs Python 3 with numpy, plus ffmpeg.
 - [x] Soundscape-only preview rendered (`python3 mix.py --ambient-only`)
 - [x] Full mix with narration: `out/drift_concept_test.mp3` (6.8 min; voice ends at 5.6 min)
 - [x] Round 1 feedback: rain quieter and sparser
+
+---
+
+# Test 2: The Foggy Ferry (memory journey)
+
+A sleep journey built from a personal memory: *"a foggy day on the ferry from Martha's Vineyard to Nantucket, leaving one dock for a short trip to the other, full of the sounds of the dock and the other boats."* The script fills in sensory detail around that memory but never arrives: the other island stays somewhere ahead in the fog, so there's no ending to wait for.
+
+- Files: `ferry/script.json`, `ferry/audio/narration/`, `ferry/audio/sfx/`, `ferry/audio/picks.json`, `ferry/audio/transcripts.json`
+- Voice: Serena (`X6keTmExe0nzB4g1Kfno`), soft warm US female, same settings as test 1
+- Wind-down: body scan (head to toe), ~2:20
+- Beds: harbor water (fades out as the ferry leaves), low engine hum, water along the hull
+- Cues: mooring-line creak, sailboat rigging, gulls, a fog-muffled ferry horn, bell buoy, distant foghorn
+- Length: 8:02 (voice ends at 6:47)
+
+New this round:
+- `ambient_change.remove` fades a bed out over 12 s (harbor water as the dock slides away)
+- per-bed `gain` in the script, so each story sets its own levels
+- every voice take is transcribed locally (faster-whisper `base.en`) and checked against the script; a take is kept only if it ends on the right words, then the slowest clean take wins
+
+```bash
+python3 mix.py --script ferry/script.json --audio-dir ferry/audio --out ferry/out/drift_foggy_ferry.mp3
+```

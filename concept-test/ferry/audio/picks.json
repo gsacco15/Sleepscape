@@ -1,0 +1,34 @@
+{
+ "narration": {
+  "A1": "t2",
+  "A2": "t2",
+  "J1": "t1",
+  "J10": "t1",
+  "J2": "t2",
+  "J3": "t2",
+  "J4": "t2",
+  "J5": "t1",
+  "J6": "t1",
+  "J7": "t2",
+  "J8": "t1",
+  "J9": "t2",
+  "W1": "t1",
+  "W2": "t1",
+  "W3": "t1",
+  "W4": "t1",
+  "W5": "t2",
+  "W6": "t1",
+  "W7": "t1"
+ },
+ "sounds": {
+  "bell_buoy": 1,
+  "bow_wash": 1,
+  "ferry_engine": 2,
+  "ferry_horn": 1,
+  "foghorn": 2,
+  "gulls": 1,
+  "halyards": 1,
+  "harbor_water": 1,
+  "rope_creak": 1
+ }
+}

@@ -1,0 +1,269 @@
+{
+  "title": "Foggy Ferry",
+  "type": "memory_journey",
+  "memory_seed": "A foggy day on the ferry from Martha's Vineyard to Nantucket. Leaving one dock, a short trip to the other. The sounds of the ferry dock, the other boats. A relaxing vibe and journey.",
+  "wind_down_type": "body_scan",
+  "design_note": "The journey never arrives. The other island stays somewhere ahead in the fog, so there is no ending to wait for.",
+  "voice": {
+    "name": "Serena - Calm Meditation & Sleep Voice",
+    "voice_id": "X6keTmExe0nzB4g1Kfno",
+    "model_id": "eleven_multilingual_v2",
+    "settings": {
+      "stability": 0.8,
+      "similarity_boost": 0.8,
+      "style": 0.0,
+      "speed": 0.85
+    }
+  },
+  "ambient_bed": [
+    {
+      "id": "harbor_water",
+      "prompt": "Gentle harbor water lapping against wooden dock pilings, calm, close",
+      "loop": true,
+      "duration_sec": 20,
+      "gain": 0.22
+    },
+    {
+      "id": "ferry_engine",
+      "prompt": "Low steady ferry engine hum heard from the open deck, deep soft rumble",
+      "loop": true,
+      "duration_sec": 20,
+      "gain": 0.1,
+      "filter": "lowpass=f=1800"
+    },
+    {
+      "id": "bow_wash",
+      "prompt": "Soft steady water rushing past the hull of a moving boat, gentle wash",
+      "loop": true,
+      "duration_sec": 20,
+      "gain": 0.17,
+      "filter": "lowpass=f=5000"
+    }
+  ],
+  "sfx_library": [
+    {
+      "id": "rope_creak",
+      "prompt": "Thick mooring rope creaking against a wooden dock cleat, slow and soft",
+      "duration_sec": 5
+    },
+    {
+      "id": "halyards",
+      "prompt": "Sailboat rigging gently clinking against masts in a quiet harbor",
+      "duration_sec": 8
+    },
+    {
+      "id": "gulls",
+      "prompt": "Two distant seagulls calling over water, soft and far away",
+      "duration_sec": 6
+    },
+    {
+      "id": "ferry_horn",
+      "prompt": "Ferry horn, one deep long low blast, distant and muffled by fog",
+      "duration_sec": 7
+    },
+    {
+      "id": "bell_buoy",
+      "prompt": "Bell buoy ringing slowly on a gentle swell, far away over calm water",
+      "duration_sec": 8
+    },
+    {
+      "id": "foghorn",
+      "prompt": "Distant lighthouse foghorn across the sea, one low soft note",
+      "duration_sec": 7
+    }
+  ],
+  "segments": [
+    {
+      "id": "A1",
+      "phase": "arrival",
+      "pause_after_sec": 4,
+      "text": "Tonight, we're going back to a soft grey morning by the sea. A ferry dock on the Vineyard, wrapped in fog... and a short, easy crossing to another island. There's nothing to plan. The trip takes care of itself.",
+      "ambient_change": {
+        "add": [
+          "harbor_water"
+        ]
+      }
+    },
+    {
+      "id": "A2",
+      "phase": "arrival",
+      "pause_after_sec": 5,
+      "text": "You're already here, at the end of the dock, with a warm cup in your hands... and the whole morning moving slowly around you.",
+      "sfx": [
+        {
+          "id": "halyards",
+          "offset_sec": 3,
+          "volume": 0.22,
+          "pan": 0.5
+        }
+      ]
+    },
+    {
+      "id": "W1",
+      "phase": "wind_down",
+      "pause_after_sec": 4,
+      "text": "Before we board, let's settle the body. Start at the top of your head... and let it soften, as if the fog were resting there, cool and light."
+    },
+    {
+      "id": "W2",
+      "phase": "wind_down",
+      "pause_after_sec": 4,
+      "text": "Let that softness move down, over your forehead... your eyes... your jaw. Let the jaw hang a little loose."
+    },
+    {
+      "id": "W3",
+      "phase": "wind_down",
+      "pause_after_sec": 4,
+      "text": "Down through the neck... and into the shoulders. Let them drop, away from your ears."
+    },
+    {
+      "id": "W4",
+      "phase": "wind_down",
+      "pause_after_sec": 5,
+      "text": "Into your arms. Heavy. All the way down to your hands... warm, as if they were still holding that cup."
+    },
+    {
+      "id": "W5",
+      "phase": "wind_down",
+      "pause_after_sec": 5,
+      "text": "Let your chest rise and fall on its own... like a boat, on a gentle swell."
+    },
+    {
+      "id": "W6",
+      "phase": "wind_down",
+      "pause_after_sec": 6,
+      "text": "Your belly softens. Your hips settle. Your legs grow heavy... all the way down, to your feet."
+    },
+    {
+      "id": "W7",
+      "phase": "wind_down",
+      "pause_after_sec": 6,
+      "text": "The whole body, resting now. Held. Nothing more to do."
+    },
+    {
+      "id": "J1",
+      "phase": "journey",
+      "pause_after_sec": 4,
+      "text": "The ferry waits at the end of the dock, white and patient, its engine humming low. Thick lines creak against the wooden cleats, as the boat leans, ever so slightly, into the tide.",
+      "ambient_change": {
+        "add": [
+          "ferry_engine"
+        ]
+      },
+      "sfx": [
+        {
+          "id": "rope_creak",
+          "offset_sec": 9,
+          "volume": 0.35,
+          "pan": -0.4
+        }
+      ]
+    },
+    {
+      "id": "J2",
+      "phase": "journey",
+      "pause_after_sec": 5,
+      "text": "Across the harbor, sailboats rest on their moorings. Their rigging clinks softly against the masts... a quiet, uneven music.",
+      "sfx": [
+        {
+          "id": "halyards",
+          "offset_sec": 6,
+          "volume": 0.3,
+          "pan": 0.45
+        }
+      ]
+    },
+    {
+      "id": "J3",
+      "phase": "journey",
+      "pause_after_sec": 6,
+      "text": "You step aboard, and find a bench along the rail. The wood is damp with mist, and cool through your clothes. Somewhere above, a gull calls... and another answers.",
+      "sfx": [
+        {
+          "id": "gulls",
+          "offset_sec": 11,
+          "volume": 0.25,
+          "pan": 0.3
+        }
+      ]
+    },
+    {
+      "id": "J4",
+      "phase": "journey",
+      "pause_after_sec": 7,
+      "text": "A deep horn sounds, long and low, softened by the fog. And the dock slides gently away.",
+      "ambient_change": {
+        "add": [
+          "bow_wash"
+        ],
+        "remove": [
+          "harbor_water"
+        ]
+      },
+      "sfx": [
+        {
+          "id": "ferry_horn",
+          "offset_sec": 1,
+          "volume": 0.3,
+          "pan": 0.0
+        }
+      ]
+    },
+    {
+      "id": "J5",
+      "phase": "journey",
+      "pause_after_sec": 7,
+      "text": "The town fades first. Grey shingled houses... a white steeple... then only soft white, in every direction."
+    },
+    {
+      "id": "J6",
+      "phase": "journey",
+      "pause_after_sec": 7,
+      "text": "The air is cool and damp on your face. It smells of salt... and seaweed... and the warm, faint breath of the engine below."
+    },
+    {
+      "id": "J7",
+      "phase": "journey",
+      "pause_after_sec": 8,
+      "text": "Off to one side, a bell buoy rocks on the swell, ringing slowly... once... and again... far away.",
+      "sfx": [
+        {
+          "id": "bell_buoy",
+          "offset_sec": 5,
+          "volume": 0.28,
+          "pan": -0.55
+        }
+      ]
+    },
+    {
+      "id": "J8",
+      "phase": "journey",
+      "pause_after_sec": 9,
+      "text": "Water hushes along the hull. The deck hums beneath you. Somewhere ahead, the other island waits... and there's no hurry to reach it."
+    },
+    {
+      "id": "J9",
+      "phase": "journey",
+      "pause_after_sec": 10,
+      "text": "A foghorn, somewhere far off... the slow wash of the wake... soft grey light...",
+      "sfx": [
+        {
+          "id": "foghorn",
+          "offset_sec": 0.5,
+          "volume": 0.22,
+          "pan": 0.35
+        }
+      ]
+    },
+    {
+      "id": "J10",
+      "phase": "journey",
+      "pause_after_sec": 0,
+      "text": "Fog... and water... and the gentle hum..."
+    }
+  ],
+  "fade": {
+    "ambient_tail_sec": 75,
+    "fade_out_sec": 60
+  }
+}

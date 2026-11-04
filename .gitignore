@@ -2,3 +2,7 @@ __pycache__/
 concept-test/audio/sfx_variations/
 concept-test/out/
 concept-test/audio/narration_takes/
+concept-test/*/audio/sfx_variations/
+concept-test/*/audio/narration_takes/
+concept-test/*/out/
+concept-test/*/out_timeline.txt
