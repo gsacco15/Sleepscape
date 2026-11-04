@@ -1,0 +1,187 @@
+{
+ "A1_t1": {
+  "text": "Tonight we're going back to a soft gray morning by the sea, a quiet dock on the vineyard, wrapped in fog, and the island queen waiting to carry you across. There's nothing to plan. The trip takes care of itself.",
+  "tail_ok": true,
+  "coverage": 0.97
+ },
+ "A1_t2": {
+  "text": "Tonight, we're going back to a soft gray morning by the sea, a quiet dock on the vineyard, wrapped in fog, and the island queen waiting to carry you across. There's nothing to plan. The trip takes care of itself.",
+  "tail_ok": true,
+  "coverage": 0.97
+ },
+ "A2_t1": {
+  "text": "You're already here at the end of the dock with a warm cup in your hands and the whole morning moving slowly around you.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "A2_t2": {
+  "text": "You're already here at the end of the dock with a warm cup in your hands and the whole morning moving slowly around you.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "J10_t1": {
+  "text": "the island queen, the fog, and the gentle hum.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "J10_t2": {
+  "text": "the island queen, the fog, and the gentle hum.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "J1_t1": {
+  "text": "The island queen rests at the end of the dock, white and patient, somewhere deep inside her, the engines hum, low and steady, like a slow heartbeat.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "J1_t2": {
+  "text": "The island queen rests at the end of the dock, white and patient. Somewhere deep inside her, the engine's hum, low and steady, like a slow heartbeat.",
+  "tail_ok": true,
+  "coverage": 0.96
+ },
+ "J2_t2": {
+  "text": "Across the harbor, sailboats sleep on their moorings, their rigging chimes softly, now and then, and then goes quiet again.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "J3_t1": {
+  "text": "You step aboard and climb to the upper deck. You find a bench by the rail. The wood damp with mist and cool through your clothes.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "J3_t2": {
+  "text": "You step aboard and climb to the upper deck. You find a bench by the rail. The wood damp with mist and cool through your clothes.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "J4_t1": {
+  "text": "A deep horn sounds, long and low, softened by the fog, and the dock slides gently away.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "J4_t2": {
+  "text": "A deep horn sounds, long and low, softened by the fog, and the dock slides gently away.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "J5_t1": {
+  "text": "The town fades first, grey shingled houses, a white steeple, then only soft white in every direction.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "J5_t2": {
+  "text": "The town fades first. Gray shingled houses, a white steeple, then only soft white in every direction.",
+  "tail_ok": true,
+  "coverage": 0.94
+ },
+ "J6_t1": {
+  "text": "The deck hums beneath you, a deep, steady feeling, more felt than heard. The air is cool and damp, it smells of salt and the open sea.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "J6_t2": {
+  "text": "The deck hums beneath you, a deep, steady feeling, more felt than heard. The air is cool and damp. It smells of salt and the open sea.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "J7_t1": {
+  "text": "far off to one side, a bell boy rings once and again and fades into the fog.",
+  "tail_ok": true,
+  "coverage": 0.94
+ },
+ "J7_t2": {
+  "text": "far off to one side, a bellboy rings once and again and fades into the fog.",
+  "tail_ok": true,
+  "coverage": 0.88
+ },
+ "J8_t1": {
+  "text": "There's nothing to see but soft gray light. Nothing to do but sit and drift. Somewhere ahead, the other island waits and there's no hurry to reach it.",
+  "tail_ok": true,
+  "coverage": 0.95
+ },
+ "J8_t2": {
+  "text": "There's nothing to see but soft gray light, nothing to do but sit and drift. Somewhere ahead the other island waits and there's no hurry to reach it.",
+  "tail_ok": true,
+  "coverage": 0.95
+ },
+ "J9_t1": {
+  "text": "a fog horn, somewhere far away, the low hum of the engines, soft gray light.",
+  "tail_ok": false,
+  "coverage": 0.85
+ },
+ "J9_t2": {
+  "text": "A fog horn, somewhere far away, the low hum of the engines, soft gray light.",
+  "tail_ok": false,
+  "coverage": 0.85
+ },
+ "W1_t1": {
+  "text": "Before we board, let's settle the body. Start at the top of your head and let it soften as if the fog were resting there. Cool and light.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "W1_t2": {
+  "text": "Before we board, let's settle the body. Start at the top of your head and let it soften as if the fog were resting there. Cool and light.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "W2_t1": {
+  "text": "Let that softness move down over your forehead, your eyes, your jaw. Let the jaw hang a little loose.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "W2_t2": {
+  "text": "Let that softness move down over your forehead, your eyes, your jaw. Let the jaw hang a little loose.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "W3_t1": {
+  "text": "Down through the neck and into the shoulders. Let them drop away from your ears.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "W3_t2": {
+  "text": "down through the neck and into the shoulders. Let them drop away from your ears.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "W4_t1": {
+  "text": "into your arms, heavy, all the way down to your hands, warm, as if they were still holding that cup.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "W4_t2": {
+  "text": "into your arms, heavy, all the way down to your hands, warm, as if they were still holding that cup.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "W5_t1": {
+  "text": "Let your chest rise and fall on its own, like a boat on a gentle swell.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "W5_t2": {
+  "text": "Let your chest rise and fall on its own, like a boat on a gentle swell.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "W6_t1": {
+  "text": "your belly softens, your hips settle, your legs grow heavy, all the way down to your feet.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "W6_t2": {
+  "text": "Your belly softens, your hips settle, your legs grow heavy, all the way down to your feet.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "W7_t1": {
+  "text": "The whole body resting now, held nothing more to do.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "W7_t2": {
+  "text": "The whole body resting now. Held. Nothing more to do.",
+  "tail_ok": true,
+  "coverage": 1.0
+ }
+}

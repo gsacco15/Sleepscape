@@ -285,7 +285,7 @@ def main():
     # With narration, set the voice to ~-21 dBFS RMS; ambient-only, set the bed to ~-30.
     if active.any():
         ref = float(np.sqrt(np.mean(mix_ref[active] ** 2)))
-        target = -21.0
+        target = -21.0 + script.get("mix", {}).get("level_db", 0.0)
     else:
         ref = float(np.sqrt(np.mean(mix_ref[:ne] ** 2)))
         target = -30.0
