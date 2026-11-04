@@ -5,4 +5,4 @@ concept-test/audio/narration_takes/
 concept-test/*/audio/sfx_variations/
 concept-test/*/audio/narration_takes/
 concept-test/*/out/
-concept-test/*/out_timeline.txt
+concept-test/*/out_timeline*.txt
