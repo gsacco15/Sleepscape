@@ -47,13 +47,6 @@
       "duration_sec": 30,
       "gain": 0.1,
       "filter": "lowpass=f=3000"
-    },
-    {
-      "id": "sea_below",
-      "source": "reuses round-1 hull-wash clip (bow_wash v1), heavily muffled",
-      "loop": true,
-      "gain": 0.07,
-      "filter": "lowpass=f=650,highpass=f=90"
     }
   ],
   "sfx_library": [
@@ -189,8 +182,7 @@
       "text": "A deep horn sounds, long and low, softened by the fog. And the dock slides gently away.",
       "ambient_change": {
         "add": [
-          "deck_air",
-          "sea_below"
+          "deck_air"
         ],
         "remove": [
           "harbor_calm"
@@ -272,5 +264,6 @@
   },
   "version": 2,
   "feedback_v1": "Too busy and annoying; water hitting the hull on a loop; engine too loud; wanted calmer, ambient, chill vibes; didn't like Serena's voice.",
-  "feedback_round2": "Up on the top deck the water should feel far below; harbor sounds and horns are nice."
+  "feedback_round2": "Up on the top deck the water should feel far below; harbor sounds and horns are nice.",
+  "feedback_round3": "Water below is annoying: removed. Finish it."
 }
