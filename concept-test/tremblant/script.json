@@ -6,8 +6,9 @@
  "design_notes": [
   "No music, no voices or breathing, no water.",
   "Outside wind crossfades to a muffled copy when the cabin door closes.",
-  "Single sounds thin out with height; none in the last stretch.",
-  "Loops have different lengths (30/23/27 s) so they never repeat in step."
+  "Loops have different lengths (30/23/27 s) so they never repeat in step.",
+  "Pine wind grows in slowly over 40 s from the end of the town section, so it is already there when the pines are named.",
+  "Lift towers repeat as the cabin climbs, each quieter than the last and a different recording; nothing after 8:12."
  ],
  "voice": {
   "name": "Ruth - Soothing Meditation Guide & ASMR",
@@ -52,8 +53,11 @@
    "prompt": "Soft wind through a snowy pine forest at night, distant and calm",
    "loop": true,
    "duration_sec": 27,
-   "gain": 0.2,
-   "filter": "highpass=f=40,lowpass=f=1600"
+   "gain": 0.12,
+   "filter": "highpass=f=40,lowpass=f=900",
+   "file": "pine_wind_gusty",
+   "fade_in_sec": 40,
+   "fade_in_curve": "slow"
   }
  ],
  "sfx_library": [
@@ -274,18 +278,33 @@
    "id": "T4",
    "phase": "journey",
    "pause_after_sec": 12,
-   "text": "The lights grow small, and soft, and far away... until the village is only a warm glow in the snow below."
+   "text": "The lights grow small, and soft, and far away... until the village is only a warm glow in the snow below.",
+   "ambient_change": {
+    "anchor": "line_end",
+    "offset_sec": 1.0,
+    "add": [
+     "pine_wind"
+    ]
+   }
   },
   {
    "id": "M1",
    "phase": "journey",
    "pause_after_sec": 13,
    "text": "Now the pines close in. Tall and dark, their branches heavy with snow, so close you could almost touch them.",
-   "ambient_change": {
-    "add": [
-     "pine_wind"
-    ]
-   }
+   "sfx": [
+    {
+     "id": "tower",
+     "file": "tower_b",
+     "anchor": "line_end",
+     "offset_sec": 3.0,
+     "hit_sec": 0.5,
+     "volume": 0.2,
+     "pan": 0.0,
+     "jitter_sec": 0,
+     "note": "2nd tower, quieter"
+    }
+   ]
   },
   {
    "id": "M2",
@@ -329,6 +348,17 @@
      "pan": 0.5,
      "jitter_sec": 0,
      "note": "hoot 2.5 s before the line, so it's heard, then named"
+    },
+    {
+     "id": "tower",
+     "file": "tower_c",
+     "anchor": "line_end",
+     "offset_sec": 4.0,
+     "hit_sec": 0.5,
+     "volume": 0.175,
+     "pan": 0.0,
+     "jitter_sec": 0,
+     "note": "3rd tower, quieter still"
     }
    ]
   },
@@ -348,7 +378,20 @@
    "id": "N3",
    "phase": "journey",
    "pause_after_sec": 22,
-   "text": "Only the wind... and the quiet hum... carrying you up."
+   "text": "Only the wind... and the quiet hum... carrying you up.",
+   "sfx": [
+    {
+     "id": "tower",
+     "file": "tower_d",
+     "anchor": "line_end",
+     "offset_sec": 5.0,
+     "hit_sec": 0.5,
+     "volume": 0.165,
+     "pan": 0.0,
+     "jitter_sec": 0,
+     "note": "last tower, very soft"
+    }
+   ]
   },
   {
    "id": "N4",

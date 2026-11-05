@@ -284,7 +284,10 @@ def main():
         start = bed_start.get(bid, 0)
         loop = loop_to_length(level(tame(decode(p, bed.get("filter"))), BED_RMS_DB), n - start)
         fade = int(bed.get("fade_in_sec", INTRO_FADE_IN_S if start == 0 else BED_FADE_IN_S) * SR)
-        loop[:fade] *= np.linspace(0, 1, fade, dtype=np.float32)[:, None]
+        ramp = np.linspace(0, 1, fade, dtype=np.float32)
+        if bed.get("fade_in_curve") == "slow":   # starts barely audible, so a bed grows in rather than switching on
+            ramp = ramp ** 2
+        loop[:fade] *= ramp[:, None]
         if bid in bed_stop:  # "remove": slow fade-out, then silence
             s0 = max(0, bed_stop[bid] - start)
             fo = min(int(bed.get("fade_out_sec", BED_FADE_OUT_S) * SR), len(loop) - s0)
