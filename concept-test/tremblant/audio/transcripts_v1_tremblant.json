@@ -1,0 +1,12 @@
+{
+ "V1_t1": {
+  "text": "Tonight we're in Thumbler, a little village at the foot of the mountain, deep in winter. It's late, the day is done, and the snow is falling slow and soft.",
+  "tail_ok": true,
+  "coverage": 0.96
+ },
+ "V1_t2": {
+  "text": "Tonight we're in Tambla, a little village at the foot of the mountain, deep in winter. It's late, the day is done and the snow is falling slow and soft.",
+  "tail_ok": true,
+  "coverage": 0.96
+ }
+}

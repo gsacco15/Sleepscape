@@ -1,5 +1,5 @@
 {
- "title": "The Snowlight Gondola",
+ "title": "Tremblant Snowlight Gondola Ride",
  "subtitle": "Mont-Tremblant · a night cable-car ride",
  "type": "place_journey",
  "wind_down_type": "body_scan",
@@ -95,7 +95,7 @@
    "id": "V1",
    "phase": "arrival",
    "pause_after_sec": 6,
-   "text": "Tonight, we're in a little village at the foot of a mountain, deep in the Quebec winter. It's late. The day is done... and the snow is falling, slow and soft.",
+   "text": "Tonight, we're in Tremblant... a little village at the foot of the mountain, deep in winter. It's late. The day is done... and the snow is falling, slow and soft.",
    "ambient_change": {
     "add": [
      "snow_wind"
