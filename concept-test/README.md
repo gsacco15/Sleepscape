@@ -131,9 +131,10 @@ A night cable-car ride at Mont-Tremblant. It opens in the snowy pedestrian villa
 
 - Files: `tremblant/script.json`, `tremblant/audio/narration/`, `tremblant/audio/sfx/`, `tremblant/audio/picks.json`, `tremblant/audio/transcripts_b1.json` + `_b2.json`, `tremblant/nodes.json` (ElevenLabs node IDs), `tremblant/player.html`
 - Voice: Ruth (`ZPrQ2I47gewiFOmXksok`) on `eleven_v4`, stability 0.8, similarity 0.85. v4 has no speed setting; pace comes from a `[softly] [slowly]` tag prefix (tags are not spoken). 1 take per line; all 27 passed the transcript check.
-- Length: 9:45 (5 s lead-in, voice ends at 8:35, 70 s ambient tail with a 45 s fade)
+- Length: 19:45 (5 s lead-in, voice ends at 8:35, then an 11 min sleep tail with a 2 min fade; round 1–3 versions were 9:45)
 - Round 2: the opening line names Tremblant instead of Quebec ("Tonight, we're in Tremblant... a little village at the foot of the mountain, deep in winter."). Generated 2 takes for pronunciation; a multilingual transcriber in French heard take 1 as "Tremblant" unaided, so take 1 is used and take 2 is kept in `narration_takes/`.
 - Round 3: the pine wind is now the gustier take, low-passed at 900 Hz (was 1600) and about 4 dB quieter (≈7 dB under the other beds), and it grows in over 40 s on a slow (squared) curve from the end of the town section instead of switching on at "the pines close in". Three more lift towers as the cabin climbs (5:36, 7:04, 8:13), each a different take and quieter than the last: −32, −35, −37, −40 dB.
+- Round 4 (sleep version): after the voice ends at 8:35 the ride carries on for ~11 min (muffled wind, cable hum, pine wind; steady at −36.4 dB every minute) with four very soft tower passes (9:54, 12:01, 14:12, 16:35; about −41 to −42 dB), then a 2 min fade. Total 19:45. The player streams an AAC copy (`.mp4`, 96 kbps, 13.8 MB) because artifact files are capped at 15 MB; the full 192 kbps MP3 is 28 MB.
 - Beds: village wind (outside) → on the door's thud it drops out over 1.5 s while a 450 Hz low-passed copy of the same wind and a cable hum fade in; pine wind joins in the forest, low-passed as if through glass. Every bed gets a 40 Hz high-pass (the wind takes had most of their energy below 20 Hz, which threw off the levelling).
 - Cues: steps ×3 (three different takes), chapel bell, door, lift tower, snow from a branch, owl. All placed on word timings: the door's thud lands just after "behind you", the owl hoots 2.5 s before it is named.
 - Cost: narration ~3,300 credits (27 lines × 1 take), sounds ~1,500 (9 prompts × 4 variations)
@@ -148,5 +149,5 @@ New in the mixer (`mix.py`), all backwards-compatible (the ferry render is bit-i
 Measured balance: voice ≈ −24 dB RMS; background in pauses ≈ −35 dB (cabin −38); single sounds 3–7 dB above the background; peak −4.3 dBFS.
 
 ```bash
-python3 mix.py --script tremblant/script.json --audio-dir tremblant/audio --out tremblant/out/tremblant_gondola_r3.mp3
+python3 mix.py --script tremblant/script.json --audio-dir tremblant/audio --out tremblant/out/tremblant_gondola_sleep.mp3
 ```

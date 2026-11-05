@@ -80,7 +80,7 @@
   .alt { font-size: 12px; letter-spacing: 0.06em; }
   .alt b { font-weight: 500; color: var(--text); }
 
-  .chapters { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; width: 100%; }
+  .chapters { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; width: 100%; }
   .chap {
     background: none; border: 1px solid var(--line); border-radius: 10px; color: var(--text);
     padding: 10px 4px; font: inherit; font-size: 13px; cursor: pointer;
@@ -89,7 +89,6 @@
   .chap span { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
   .chap.on { border-color: var(--lamp-deep); color: var(--lamp); }
   .chap:focus-visible { outline: 2px solid var(--lamp); outline-offset: 2px; }
-  @media (max-width: 440px) { .chapters { grid-template-columns: repeat(6, 1fr); } .chap { grid-column: span 2; } .chap:nth-child(4) { grid-column: 2 / span 2; } }
 
   .hint { font-size: 13px; color: var(--muted); text-align: center; }
 
@@ -114,12 +113,12 @@
   <header>
     <div class="eyebrow">Drift · place journey · test 3</div>
     <h1>Tremblant Snowlight <em>Gondola Ride</em></h1>
-    <div class="meta">Mont-Tremblant at night · 9:45 · voice: Ruth · body-scan wind-down</div>
+    <div class="meta">Mont-Tremblant at night · 19:45 · voice: Ruth · body-scan wind-down</div>
   </header>
 
   <div class="brief">
     <div class="eyebrow">The ride</div>
-    <p>Wind, snow and soft steps in the village at night. Step into the cabin and the wind goes muffled and safe. Up over the town, into the pines, slower and quieter toward the top. One chapel bell, no music, no breathing sounds.</p>
+    <p>Wind, snow and soft steps in the village at night. Step into the cabin and the wind goes muffled and safe. Up over the town, into the pines, slower and quieter toward the top. One chapel bell, no music, no breathing sounds. After the voice ends, the ride keeps going for eleven more minutes to fall asleep to.</p>
   </div>
 
   <div class="player">
@@ -129,12 +128,12 @@
     <div class="status" id="status">Tap to begin</div>
 
     <div class="timeline">
-      <div class="bar" id="bar" role="slider" tabindex="0" aria-label="Position" aria-valuemin="0" aria-valuemax="585" aria-valuenow="0">
+      <div class="bar" id="bar" role="slider" tabindex="0" aria-label="Position" aria-valuemin="0" aria-valuemax="1185" aria-valuenow="0">
         <div class="track-line"></div>
         <div class="fill" id="fill"></div>
         <div class="knob" id="knob"></div>
       </div>
-      <div class="times"><span id="cur">0:00</span><span class="alt" id="alt" title="Elevation on the ride, from the village to the summit">≈ <b>230</b> m</span><span id="dur">9:45</span></div>
+      <div class="times"><span id="cur">0:00</span><span class="alt" id="alt" title="Elevation on the ride, from the village to the summit">≈ <b>230</b> m</span><span id="dur">19:45</span></div>
     </div>
 
     <div class="chapters" id="chapters">
@@ -143,6 +142,7 @@
       <button class="chap" type="button" data-t="240.7">The town<span>4:00</span></button>
       <button class="chap" type="button" data-t="323.8">Pines<span>5:23</span></button>
       <button class="chap" type="button" data-t="436.6">The top<span>7:16</span></button>
+      <button class="chap" type="button" data-t="515.1">Sleep<span>8:35</span></button>
     </div>
 
     <div class="hint">Best with headphones, volume low, screen dimmed.</div>
@@ -167,8 +167,10 @@
       <li><time>6:51</time><p>An owl, once, deep in the forest</p></li>
       <li><time>7:04</time><p>Another tower, quieter still</p></li>
       <li><time>7:16</time><p>Slower and quieter toward the top</p></li>
-      <li><time>8:13</time><p>One last tower, barely there<small>Nothing else after this</small></p></li>
-      <li><time>8:35</time><p>The voice trails off<small>Wind and hum carry on, then fade out by 9:45</small></p></li>
+      <li><time>8:13</time><p>Another tower, barely there</p></li>
+      <li><time>8:35</time><p>The voice trails off and the ride carries on<small>Cabin wind, cable hum and the forest outside, for about eleven more minutes</small></p></li>
+      <li><time>9:54</time><p>A few more towers, very soft<small>Far apart: 9:54, 12:01, 14:12, 16:35</small></p></li>
+      <li><time>17:45</time><p>A slow two-minute fade<small>Silent by 19:45</small></p></li>
     </ul>
   </section>
 
@@ -186,14 +188,14 @@
       <li><p>Footsteps in fresh snow<small>Three different takes so they never repeat</small></p><span class="k">×3</span></li>
       <li><p>Chapel bell<small>One strike with a long ring-out</small></p><span class="k">×1</span></li>
       <li><p>Cabin door<small>A slide, then a soft thud</small></p><span class="k">×1</span></li>
-      <li><p>Lift towers<small>Soft rolls as the wheels pass over; four recordings, each quieter as you climb</small></p><span class="k">×4</span></li>
+      <li><p>Lift towers<small>Soft rolls as the wheels pass over; quieter as you climb, then very soft while you sleep</small></p><span class="k">×8</span></li>
       <li><p>Snow from a branch<small>Softened, as if heard through the glass</small></p><span class="k">×1</span></li>
       <li><p>Owl<small>A single hoot, far off</small></p><span class="k">×1</span></li>
     </ul>
   </section>
 </main>
 
-<audio id="audio" src="tremblant_gondola_r3.mp3" preload="metadata"></audio>
+<audio id="audio" src="tremblant_gondola_sleep.mp4" preload="metadata"></audio>
 
 <script>
 (function () {
@@ -211,10 +213,10 @@
   const PLAY = 'M8 5.5v13l10.5-6.5z';
   const PAUSE = 'M7 5h3.5v14H7zM13.5 5H17v14h-3.5z';
   const starts = chaps.map(c => parseFloat(c.dataset.t));
-  let total = 585;
+  let total = 1185;
 
-  // The ride: waits at the village station, starts rising on "begins to rise" (3:46), slows near the top.
-  const RISE = 226.7, TOP = 515.1, BASE_M = 230, SUMMIT_M = 875;
+  // The ride: waits at the village station, starts rising on "begins to rise" (3:46), keeps climbing through the sleep tail, slowing near the top.
+  const RISE = 226.7, TOP = 1065, BASE_M = 230, SUMMIT_M = 875;
   const climb = t => { const x = Math.max(0, Math.min(1, (t - RISE) / (TOP - RISE))); return 1 - (1 - x) * (1 - x); };
 
   const fmt = s => { s = Math.max(0, Math.floor(s)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };

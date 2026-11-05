@@ -8,7 +8,8 @@
   "Outside wind crossfades to a muffled copy when the cabin door closes.",
   "Loops have different lengths (30/23/27 s) so they never repeat in step.",
   "Pine wind grows in slowly over 40 s from the end of the town section, so it is already there when the pines are named.",
-  "Lift towers repeat as the cabin climbs, each quieter than the last and a different recording; nothing after 8:12."
+  "Lift towers repeat as the cabin climbs, each quieter than the last and a different recording; nothing after 8:12.",
+  "After the voice ends the ride carries on for ~11 min (cabin wind, hum, pine wind) with four very quiet tower passes, then a 2 min fade: a sleep tail."
  ],
  "voice": {
   "name": "Ruth - Soothing Meditation Guide & ASMR",
@@ -397,12 +398,57 @@
    "id": "N4",
    "phase": "journey",
    "pause_after_sec": 0,
-   "text": "Snow... and stillness... and the gentle climb..."
+   "text": "Snow... and stillness... and the gentle climb...",
+   "sfx": [
+    {
+     "id": "tower",
+     "anchor": "line_end",
+     "offset_sec": 78,
+     "hit_sec": 0.5,
+     "volume": 0.11,
+     "pan": 0.1,
+     "jitter_sec": 0,
+     "note": "sleep tail tower 1"
+    },
+    {
+     "id": "tower",
+     "file": "tower_c",
+     "anchor": "line_end",
+     "offset_sec": 205,
+     "hit_sec": 0.5,
+     "volume": 0.11,
+     "pan": -0.1,
+     "jitter_sec": 0,
+     "note": "sleep tail tower 2"
+    },
+    {
+     "id": "tower",
+     "file": "tower_b",
+     "anchor": "line_end",
+     "offset_sec": 335,
+     "hit_sec": 0.5,
+     "volume": 0.1,
+     "pan": 0.15,
+     "jitter_sec": 0,
+     "note": "sleep tail tower 3"
+    },
+    {
+     "id": "tower",
+     "file": "tower_d",
+     "anchor": "line_end",
+     "offset_sec": 480,
+     "hit_sec": 0.5,
+     "volume": 0.13,
+     "pan": -0.15,
+     "jitter_sec": 0,
+     "note": "sleep tail tower 4"
+    }
+   ]
   }
  ],
  "fade": {
-  "ambient_tail_sec": 70,
-  "fade_out_sec": 45
+  "ambient_tail_sec": 670,
+  "fade_out_sec": 120
  },
  "mix": {
   "voice_gain_db": -3.0,
