@@ -9,6 +9,9 @@ using the same rules the real Web Audio mixer will follow:
   * ambience quieter under the wind-down, fuller in the journey
   * ambience ducked ~30% under narration, swelling back in the pauses
   * one-shot SFX at segment start + offset, panned, with a small random delay
+  * cues and ambient changes can be anchored to the line: "start" (default),
+    "line_end" / "after_line", or "fraction" (at x line length); "hit_sec" is the
+    moment inside the clip (e.g. a door's thud) that should land on that time
   * master volume drifts down ~20% across the narration
   * after the last line the ambience keeps going, then fades out
 
@@ -164,9 +167,21 @@ def smooth_envelope(active: np.ndarray, attack_s: float, release_s: float) -> np
     return np.repeat(env, hop)[:len(active)]
 
 
+def anchor_time(spec: dict, dur: float) -> float:
+    """Seconds from the start of a line for a cue or ambient change."""
+    a = spec.get("anchor", "start")
+    if a in ("line_end", "after_line"):
+        base = dur
+    elif a == "fraction":
+        base = spec.get("at", 0.0) * dur
+    else:
+        base = 0.0
+    return base + spec.get("offset_sec", 0.0)
+
+
 def build_timeline(script, audio_dir, ambient_only):
     """Return per-segment (start_sample, clip or None) and the narration end time."""
-    placed, t = [], 0.0
+    placed, t = [], float(script.get("lead_in_sec", 0.0))   # ambience-only lead-in before the first line
     missing = []
     for seg in script["segments"]:
         clip = None
@@ -190,6 +205,7 @@ def main():
     ap.add_argument("--out", default=None)
     ap.add_argument("--ambient-only", action="store_true")
     ap.add_argument("--seed", type=int, default=7)
+    ap.add_argument("--stems", action="store_true", help="also write voice/ambience/sfx stems (.npy, final gain, before the limiter) next to --out")
     args = ap.parse_args()
 
     random.seed(args.seed)
@@ -213,31 +229,46 @@ def main():
     # Phase-dependent ambience level and bed start times
     phase_gain = np.ones(n, dtype=np.float32)
     bed_start, bed_stop = {}, {}
-    for seg, start, clip, dur in placed:
-        phase_gain[start:] = PHASE_AMBIENCE.get(seg["phase"], 1.0)
-        for bed in seg.get("ambient_change", {}).get("add", []):
-            bed_start.setdefault(bed, start)
-        for bed in seg.get("ambient_change", {}).get("remove", []):
-            bed_stop.setdefault(bed, start)
+    lib = {x["id"]: x for x in script.get("sfx_library", [])}
+    phase_amb = {**PHASE_AMBIENCE, **script.get("mix", {}).get("phase_ambience", {})}   # per-story override
+    cue_log = []
+    for i, (seg, start, clip, dur) in enumerate(placed):
+        phase_gain[0 if i == 0 else start:] = phase_amb.get(seg["phase"], 1.0)
+        change = seg.get("ambient_change", {})
+        # changes can land mid-line (e.g. a door closing); the first line's beds start at 0 under the lead-in
+        at = 0 if i == 0 and "anchor" not in change and "offset_sec" not in change else start + int(anchor_time(change, dur) * SR)
+        for bed in change.get("add", []):
+            bed_start.setdefault(bed, at)
+        for bed in change.get("remove", []):
+            bed_stop.setdefault(bed, at)
         if clip is not None:
             end = min(n, start + len(clip))
             voice[start:end] += clip[:end - start] * NARRATION_GAIN
             active[start:end] = True
         for cue in seg.get("sfx", []):
-            p = find(audio_dir, "sfx", cue["id"])
+            spec = {**lib.get(cue["id"], {}), **cue}          # library defaults (file, filter), cue overrides
+            p = find(audio_dir, "sfx", spec.get("file", cue["id"]))
             if p is None:
                 print(f"  (no file for sfx '{cue['id']}', skipping)")
                 continue
-            s = level(decode(p), SFX_PEAK_DB, mode="peak")
-            s = pan(s, cue.get("pan", 0.0)) * cue.get("volume", 0.4)
+            s = level(decode(p, spec.get("filter")), SFX_PEAK_DB, mode="peak")
+            if "length_sec" in spec:                          # keep only the first part (e.g. two steps)
+                s = s[:int(spec["length_sec"] * SR)].copy()
+                fo = min(len(s) // 2, int(0.4 * SR))
+                s[-fo:] *= np.linspace(1, 0, fo)[:, None]
+            s = pan(s, spec.get("pan", 0.0)) * spec.get("volume", 0.4)
             # gentle 50 ms fades so one-shots never click
             f = min(len(s) // 2, int(0.05 * SR))
             s[:f] *= np.linspace(0, 1, f)[:, None]
             s[-f:] *= np.linspace(1, 0, f)[:, None]
-            at = start + int((cue.get("offset_sec", 0) + random.uniform(0, SFX_MAX_JITTER_S)) * SR)
+            t = anchor_time(spec, dur) - spec.get("hit_sec", 0.0) + random.uniform(0, spec.get("jitter_sec", SFX_MAX_JITTER_S))
+            at = start + int(t * SR)
+            if at < 0:
+                s, at = s[-at:], 0
             end = min(n, at + len(s))
             if at < n:
                 sfx_bus[at:end] += s[:end - at]
+                cue_log.append((at / SR, seg["id"], cue["id"], spec.get("file", cue["id"])))
 
     # Smooth the phase changes so ambience glides rather than steps (~4 s)
     phase_gain = smooth_envelope(phase_gain, 4.0, 4.0) if len(phase_gain) else phase_gain
@@ -246,17 +277,17 @@ def main():
     amb = np.zeros((n, 2), dtype=np.float32)
     for bed in script["ambient_bed"]:
         bid = bed["id"]
-        p = find(audio_dir, "sfx", bid)
+        p = find(audio_dir, "sfx", bed.get("file", bid))   # two beds may share one recording
         if p is None:
             print(f"  (no file for bed '{bid}', skipping)")
             continue
         start = bed_start.get(bid, 0)
         loop = loop_to_length(level(tame(decode(p, bed.get("filter"))), BED_RMS_DB), n - start)
-        fade = int((INTRO_FADE_IN_S if start == 0 else BED_FADE_IN_S) * SR)
+        fade = int(bed.get("fade_in_sec", INTRO_FADE_IN_S if start == 0 else BED_FADE_IN_S) * SR)
         loop[:fade] *= np.linspace(0, 1, fade, dtype=np.float32)[:, None]
         if bid in bed_stop:  # "remove": slow fade-out, then silence
             s0 = max(0, bed_stop[bid] - start)
-            fo = min(int(BED_FADE_OUT_S * SR), len(loop) - s0)
+            fo = min(int(bed.get("fade_out_sec", BED_FADE_OUT_S) * SR), len(loop) - s0)
             loop[s0:s0 + fo] *= np.linspace(1, 0, fo, dtype=np.float32)[:, None] ** 2
             loop[s0 + fo:] = 0
         amb[start:] += loop * bed.get("gain", BED_GAIN.get(bid, 0.3))
@@ -289,7 +320,8 @@ def main():
     else:
         ref = float(np.sqrt(np.mean(mix_ref[:ne] ** 2)))
         target = -30.0
-    mix *= 10 ** (target / 20) / max(ref, 1e-9)
+    g = 10 ** (target / 20) / max(ref, 1e-9)
+    mix *= g
 
     out = Path(args.out) if args.out else HERE / "out" / (
         "drift_ambient_only.mp3" if args.ambient_only else "drift_concept_test.mp3")
@@ -299,11 +331,17 @@ def main():
            "-ar", str(SR),
            "-codec:a", "libmp3lame", "-b:a", "192k", str(out)]
     subprocess.run(enc, input=mix.astype(np.float32).tobytes(), check=True)
+    if args.stems:   # for level checks: each part with exactly the gains it has in the mix
+        for name, part in (("voice", voice * voice_gain), ("ambience", amb), ("sfx", sfx_bus)):
+            np.save(out.with_name(out.stem + f"_{name}.npy"), (part * (master * g)[:, None]).mean(1).astype(np.float32))
 
     print(f"wrote {out}  ({total_s/60:.1f} min; narration ends at {narration_end_s/60:.1f} min)")
     print("timeline:")
     for seg, start, clip, dur in placed:
         print(f"  {start/SR:6.1f}s  {seg['id']:<3} {seg['phase']:<9} {dur:4.1f}s + {seg.get('pause_after_sec',0)}s pause")
+    print("cues:")
+    for t, sid, cid, f in sorted(cue_log):
+        print(f"  {t:6.1f}s  {sid:<3} {cid}" + (f" ({f})" if f != cid else ""))
 
 
 if __name__ == "__main__":

@@ -1,0 +1,102 @@
+{
+ "C1": {
+  "text": "Inside, the wind is only a whisper now. It's warm and still and safe. Let yourself sink onto the bench.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "C2": {
+  "text": "Feel the warmth coming back into your hands, your fingers, all the way to their tips.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "C3": {
+  "text": "Let your shoulders drop. Let your back rest against the seat. Your legs grow heavy and still.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "C4": {
+  "text": "The cabin sways just a little and begins to rise.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "M1": {
+  "text": "Now the pines close in. Tall and dark, their branch is heavy with snow. So close, you could almost touch them.",
+  "tail_ok": true,
+  "coverage": 0.95
+ },
+ "M2": {
+  "text": "The cabin's soft light slides across the snowy branches as you pass. A silver glow, there and gone.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "T1": {
+  "text": "Below, the village slips slowly away. Snowy rooftops, glowing windows. The lamps along the lanes, like a string of warm beads.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "T2": {
+  "text": "The cabin rocks gently as it passes a tower, then settles and glides on.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "T3": {
+  "text": "From up here, the village looks like a little glowing toy. The white chapel, the frozen pond, the rooftops tucked close together.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "T4": {
+  "text": "The lights grow small and soft and far away until the village is only a warm glow in the snow below.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "V1": {
+  "text": "Tonight, we're in a little village at the foot of a mountain, deep in the Quebec winter. It's late, the day is done, and the snow is falling, slow and soft.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "V10": {
+  "text": "At the station, a cabin glides in, slow and patient. The door slides open, you step inside, and it closes softly behind you.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "V2": {
+  "text": "The village looks like something from a storybook. Steep roofs in red and blue and yellow. Each one wearing a thick white blanket of snow.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "V3": {
+  "text": "narrow lanes wind between them with little stone stairs and wooden balconies and shop signs hanging still in the cold air.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "V4": {
+  "text": "At the edge of the village stands a small white chapel. It's steeple dusted with snow.",
+  "tail_ok": true,
+  "coverage": 0.93
+ },
+ "V5": {
+  "text": "Old lamps glow soft and gold along the lanes, and the snow drifts down through their light, taking its time.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "V6": {
+  "text": "Little lights are strung through the bear trees, like stars that came down to rest. Every window is warm, frost lace on the glass, a hint of wood smoke, and something sweet, like maple.",
+  "tail_ok": true,
+  "coverage": 0.94
+ },
+ "V7": {
+  "text": "The snow has softened every edge. Railings, benches, the little fountain in the square. All of it rounded and white and quiet.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "V8": {
+  "text": "Your boots press softly into the fresh snow. There's no hurry. The whole village feels hushed and safe as if it's been tucked in for the night.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "V9": {
+  "text": "Above it all, the mountain rises into the dark. The gondola cabins climb its side, quiet little lanterns rising into the snow.",
+  "tail_ok": true,
+  "coverage": 1.0
+ }
+}

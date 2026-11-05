@@ -1,0 +1,372 @@
+{
+ "title": "The Snowlight Gondola",
+ "subtitle": "Mont-Tremblant · a night cable-car ride",
+ "type": "place_journey",
+ "wind_down_type": "body_scan",
+ "design_notes": [
+  "No music, no voices or breathing, no water.",
+  "Outside wind crossfades to a muffled copy when the cabin door closes.",
+  "Single sounds thin out with height; none in the last stretch.",
+  "Loops have different lengths (30/23/27 s) so they never repeat in step."
+ ],
+ "voice": {
+  "name": "Ruth - Soothing Meditation Guide & ASMR",
+  "voice_id": "ZPrQ2I47gewiFOmXksok",
+  "model_id": "eleven_v4",
+  "settings": {
+   "stability": 0.8,
+   "similarity": 0.85
+  },
+  "tag_prefix": "[softly] [slowly] ",
+  "takes_per_line": 1
+ },
+ "ambient_bed": [
+  {
+   "id": "snow_wind",
+   "prompt": "Gentle winter wind in a quiet snowy mountain village at night, soft snowfall, no voices, no music",
+   "loop": true,
+   "duration_sec": 30,
+   "gain": 0.41,
+   "fade_out_sec": 1.5,
+   "filter": "highpass=f=40",
+   "fade_in_sec": 5
+  },
+  {
+   "id": "snow_wind_muffled",
+   "file": "snow_wind",
+   "gain": 0.25,
+   "filter": "highpass=f=40,lowpass=f=450",
+   "fade_in_sec": 1.5
+  },
+  {
+   "id": "cabin_hum",
+   "prompt": "Inside a closed ski gondola cabin, low steady hum of the moving cable, very soft and calm, no voices",
+   "loop": true,
+   "duration_sec": 23,
+   "gain": 0.2,
+   "filter": "highpass=f=40,lowpass=f=1500",
+   "fade_in_sec": 4
+  },
+  {
+   "id": "pine_wind",
+   "prompt": "Soft wind through a snowy pine forest at night, distant and calm",
+   "loop": true,
+   "duration_sec": 27,
+   "gain": 0.2,
+   "filter": "highpass=f=40,lowpass=f=1600"
+  }
+ ],
+ "sfx_library": [
+  {
+   "id": "steps",
+   "prompt": "Slow soft footsteps crunching in fresh deep snow, unhurried, close",
+   "duration_sec": 8
+  },
+  {
+   "id": "door",
+   "prompt": "Ski gondola cabin door sliding shut with a soft muffled thud",
+   "duration_sec": 4
+  },
+  {
+   "id": "chapel_bell",
+   "prompt": "A single distant church bell ringing once across a snowy mountain village at night, soft and far away",
+   "duration_sec": 8
+  },
+  {
+   "id": "tower",
+   "prompt": "Ski gondola cabin rolling gently over a lift tower, soft low rumble and gentle creak, heard from inside",
+   "duration_sec": 5
+  },
+  {
+   "id": "snow_whump",
+   "prompt": "A clump of snow sliding off a pine branch, soft muffled whump",
+   "duration_sec": 3,
+   "filter": "lowpass=f=2500"
+  },
+  {
+   "id": "owl",
+   "prompt": "A single distant owl hooting softly in a snowy forest at night",
+   "duration_sec": 6,
+   "filter": "lowpass=f=3000"
+  }
+ ],
+ "segments": [
+  {
+   "id": "V1",
+   "phase": "arrival",
+   "pause_after_sec": 6,
+   "text": "Tonight, we're in a little village at the foot of a mountain, deep in the Quebec winter. It's late. The day is done... and the snow is falling, slow and soft.",
+   "ambient_change": {
+    "add": [
+     "snow_wind"
+    ]
+   },
+   "sfx": [
+    {
+     "id": "steps",
+     "offset_sec": -3.5,
+     "volume": 0.5,
+     "pan": 0.0,
+     "jitter_sec": 0
+    }
+   ]
+  },
+  {
+   "id": "V2",
+   "phase": "arrival",
+   "pause_after_sec": 6,
+   "text": "The village looks like something from a storybook. Steep roofs in red, and blue, and yellow... each one wearing a thick white blanket of snow."
+  },
+  {
+   "id": "V3",
+   "phase": "arrival",
+   "pause_after_sec": 6,
+   "text": "Narrow lanes wind between them, with little stone stairs, and wooden balconies, and shop signs hanging still in the cold air."
+  },
+  {
+   "id": "V4",
+   "phase": "arrival",
+   "pause_after_sec": 9,
+   "text": "At the edge of the village stands a small white chapel, its steeple dusted with snow.",
+   "sfx": [
+    {
+     "id": "chapel_bell",
+     "anchor": "after_line",
+     "offset_sec": 0.8,
+     "volume": 0.33,
+     "pan": -0.35,
+     "jitter_sec": 0.3
+    }
+   ]
+  },
+  {
+   "id": "V5",
+   "phase": "arrival",
+   "pause_after_sec": 6,
+   "text": "Old lamps glow soft and gold along the lanes... and the snow drifts down through their light... taking its time."
+  },
+  {
+   "id": "V6",
+   "phase": "arrival",
+   "pause_after_sec": 7,
+   "text": "Little lights are strung through the bare trees, like stars that came down to rest. Every window is warm. Frost lace on the glass... a hint of woodsmoke... and something sweet, like maple."
+  },
+  {
+   "id": "V7",
+   "phase": "arrival",
+   "pause_after_sec": 6,
+   "text": "The snow has softened every edge. Railings, benches, the little fountain in the square... all of it rounded, and white, and quiet."
+  },
+  {
+   "id": "V8",
+   "phase": "arrival",
+   "pause_after_sec": 6,
+   "text": "Your boots press softly into the fresh snow. There's no hurry. The whole village feels hushed, and safe... as if it's been tucked in for the night.",
+   "sfx": [
+    {
+     "id": "steps",
+     "file": "steps_b",
+     "offset_sec": 0.3,
+     "volume": 0.3,
+     "pan": 0.1,
+     "jitter_sec": 0
+    }
+   ]
+  },
+  {
+   "id": "V9",
+   "phase": "arrival",
+   "pause_after_sec": 6,
+   "text": "Above it all, the mountain rises into the dark. The gondola cabins climb its side... quiet little lanterns, rising into the snow."
+  },
+  {
+   "id": "V10",
+   "phase": "arrival",
+   "pause_after_sec": 7,
+   "text": "At the station, a cabin glides in, slow and patient. The door slides open... you step inside... and it closes softly behind you.",
+   "sfx": [
+    {
+     "id": "steps",
+     "file": "steps_c",
+     "offset_sec": 7.2,
+     "length_sec": 1.7,
+     "volume": 0.3,
+     "pan": 0.0,
+     "jitter_sec": 0,
+     "note": "two steps on 'you step inside'"
+    },
+    {
+     "id": "door",
+     "anchor": "line_end",
+     "offset_sec": 0.15,
+     "hit_sec": 2.95,
+     "volume": 0.22,
+     "pan": 0.15,
+     "jitter_sec": 0,
+     "note": "thud just after 'behind you'"
+    }
+   ],
+   "ambient_change": {
+    "anchor": "line_end",
+    "offset_sec": 0.15,
+    "add": [
+     "snow_wind_muffled",
+     "cabin_hum"
+    ],
+    "remove": [
+     "snow_wind"
+    ]
+   }
+  },
+  {
+   "id": "C1",
+   "phase": "wind_down",
+   "pause_after_sec": 7,
+   "text": "Inside, the wind is only a whisper now. It's warm, and still, and safe. Let yourself sink onto the bench."
+  },
+  {
+   "id": "C2",
+   "phase": "wind_down",
+   "pause_after_sec": 8,
+   "text": "Feel the warmth coming back into your hands... your fingers... all the way to their tips."
+  },
+  {
+   "id": "C3",
+   "phase": "wind_down",
+   "pause_after_sec": 9,
+   "text": "Let your shoulders drop. Let your back rest against the seat. Your legs grow heavy... and still."
+  },
+  {
+   "id": "C4",
+   "phase": "wind_down",
+   "pause_after_sec": 9,
+   "text": "The cabin sways, just a little... and begins to rise."
+  },
+  {
+   "id": "T1",
+   "phase": "journey",
+   "pause_after_sec": 11,
+   "text": "Below, the village slips slowly away. Snowy rooftops... glowing windows... the lamps along the lanes, like a string of warm beads."
+  },
+  {
+   "id": "T2",
+   "phase": "journey",
+   "pause_after_sec": 11,
+   "text": "The cabin rocks gently as it passes a tower... then settles, and glides on.",
+   "sfx": [
+    {
+     "id": "tower",
+     "offset_sec": 2.8,
+     "volume": 0.27,
+     "pan": 0.0,
+     "jitter_sec": 0,
+     "note": "first roll in the gap after 'tower,'"
+    }
+   ]
+  },
+  {
+   "id": "T3",
+   "phase": "journey",
+   "pause_after_sec": 12,
+   "text": "From up here, the village looks like a little glowing toy... the white chapel, the frozen pond, the rooftops tucked close together."
+  },
+  {
+   "id": "T4",
+   "phase": "journey",
+   "pause_after_sec": 12,
+   "text": "The lights grow small, and soft, and far away... until the village is only a warm glow in the snow below."
+  },
+  {
+   "id": "M1",
+   "phase": "journey",
+   "pause_after_sec": 13,
+   "text": "Now the pines close in. Tall and dark, their branches heavy with snow, so close you could almost touch them.",
+   "ambient_change": {
+    "add": [
+     "pine_wind"
+    ]
+   }
+  },
+  {
+   "id": "M2",
+   "phase": "journey",
+   "pause_after_sec": 14,
+   "text": "The cabin's soft light slides across the snowy branches as you pass... a silver glow, there, and gone."
+  },
+  {
+   "id": "M3",
+   "phase": "journey",
+   "pause_after_sec": 14,
+   "text": "Somewhere, a little snow slips from a branch... and falls with a soft hush into the deep white below.",
+   "sfx": [
+    {
+     "id": "snow_whump",
+     "offset_sec": 2.45,
+     "volume": 0.26,
+     "pan": -0.4,
+     "jitter_sec": 0,
+     "note": "slide under 'from a branch', settles in the gap"
+    }
+   ]
+  },
+  {
+   "id": "M4",
+   "phase": "journey",
+   "pause_after_sec": 15,
+   "text": "Far across the slopes, the lights of a snow groomer move slowly... a tiny glow, crawling through the dark."
+  },
+  {
+   "id": "M5",
+   "phase": "journey",
+   "pause_after_sec": 16,
+   "text": "Deep in the forest, an owl calls... once... and the woods go quiet again.",
+   "sfx": [
+    {
+     "id": "owl",
+     "offset_sec": -2.5,
+     "hit_sec": 1.05,
+     "volume": 0.16,
+     "pan": 0.5,
+     "jitter_sec": 0,
+     "note": "hoot 2.5 s before the line, so it's heard, then named"
+    }
+   ]
+  },
+  {
+   "id": "N1",
+   "phase": "journey",
+   "pause_after_sec": 17,
+   "text": "The cabin slows. The snow drifts past the glass... soft... and slow."
+  },
+  {
+   "id": "N2",
+   "phase": "journey",
+   "pause_after_sec": 19,
+   "text": "Higher... and quieter... and slower still."
+  },
+  {
+   "id": "N3",
+   "phase": "journey",
+   "pause_after_sec": 22,
+   "text": "Only the wind... and the quiet hum... carrying you up."
+  },
+  {
+   "id": "N4",
+   "phase": "journey",
+   "pause_after_sec": 0,
+   "text": "Snow... and stillness... and the gentle climb..."
+  }
+ ],
+ "fade": {
+  "ambient_tail_sec": 70,
+  "fade_out_sec": 45
+ },
+ "mix": {
+  "voice_gain_db": -3.0,
+  "phase_ambience": {
+   "wind_down": 0.85
+  },
+  "note": "no breathing cues in this wind-down, so the cabin ambience stays near full"
+ },
+ "lead_in_sec": 5.0
+}

@@ -122,3 +122,28 @@ New this round:
 ```bash
 python3 mix.py --script ferry/script.json --audio-dir ferry/audio --out ferry/out/drift_foggy_ferry.mp3
 ```
+
+---
+
+# Test 3: The Snowlight Gondola (place journey)
+
+A night cable-car ride at Mont-Tremblant. It opens in the snowy pedestrian village (wind, snowfall, soft steps, a slow, storybook description of the lanes and lights), steps into a gondola cabin where the wind goes muffled and safe, does a short body scan, then rises over the town and into the pines, getting slower and quieter toward the top. One chapel bell; no music, no breathing sounds, no water.
+
+- Files: `tremblant/script.json`, `tremblant/audio/narration/`, `tremblant/audio/sfx/`, `tremblant/audio/picks.json`, `tremblant/audio/transcripts_b1.json` + `_b2.json`, `tremblant/nodes.json` (ElevenLabs node IDs), `tremblant/player.html`
+- Voice: Ruth (`ZPrQ2I47gewiFOmXksok`) on `eleven_v4`, stability 0.8, similarity 0.85. v4 has no speed setting; pace comes from a `[softly] [slowly]` tag prefix (tags are not spoken). 1 take per line; all 27 passed the transcript check.
+- Length: 9:45 (5 s lead-in, voice ends at 8:35, 70 s ambient tail with a 45 s fade)
+- Beds: village wind (outside) → on the door's thud it drops out over 1.5 s while a 450 Hz low-passed copy of the same wind and a cable hum fade in; pine wind joins in the forest, low-passed as if through glass. Every bed gets a 40 Hz high-pass (the wind takes had most of their energy below 20 Hz, which threw off the levelling).
+- Cues: steps ×3 (three different takes), chapel bell, door, lift tower, snow from a branch, owl. All placed on word timings: the door's thud lands just after "behind you", the owl hoots 2.5 s before it is named.
+- Cost: narration ~3,300 credits (27 lines × 1 take), sounds ~1,500 (9 prompts × 4 variations)
+
+New in the mixer (`mix.py`), all backwards-compatible (the ferry render is bit-identical):
+- `anchor` on cues and ambient changes: `start` (default), `line_end` / `after_line`, `fraction` (`at` × line length), plus `offset_sec`
+- per cue: `hit_sec` (the moment inside the clip that should land on the anchor), `jitter_sec`, `length_sec` (keep only the start, e.g. two steps), `file` (another take), and `filter` (from the cue or `sfx_library`)
+- script-level `lead_in_sec` (ambience before the first line) and `mix.phase_ambience` (per-story phase levels; this story keeps the cabin near full since there are no breathing cues)
+- `--stems` writes voice/ambience/sfx stems at their final gain, for level checks without the voice getting in the way
+
+Measured balance: voice ≈ −24 dB RMS; background in pauses ≈ −35 dB (cabin −38); single sounds 3–7 dB above the background; peak −4.3 dBFS.
+
+```bash
+python3 mix.py --script tremblant/script.json --audio-dir tremblant/audio --out tremblant/out/snowlight_gondola.mp3
+```

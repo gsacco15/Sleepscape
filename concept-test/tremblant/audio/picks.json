@@ -1,0 +1,49 @@
+{
+ "narration": "1 take per line (Ruth, eleven_v4); all 27 passed the transcript check (full coverage, correct last words, no gaps over 2.5 s)",
+ "sfx": {
+  "snow_wind": [
+   "v1",
+   "steadiest (\u00b11.3 dB over 2 s), clean loop seam, no spikes, dark and soft; heavy sub-20 Hz energy removed with a 40 Hz high-pass"
+  ],
+  "cabin_hum": [
+   "v2",
+   "no narrow whine (v4 had a 590 Hz tone carrying ~8% of the audible energy)"
+  ],
+  "pine_wind": [
+   "v2",
+   "smooth and least tonal so the 27 s loop never shows; v3 was only sub-bass rumble, v4 had a 200 Hz whine"
+  ],
+  "steps": [
+   "v3",
+   "most even, unhurried pace (~1.5 steps/s); used under the opening"
+  ],
+  "steps_b": [
+   "v1",
+   "softest peaks; used in V8 so the steps don't repeat"
+  ],
+  "steps_c": [
+   "v4",
+   "slowest; first 1.7 s (two steps) used for stepping into the cabin"
+  ],
+  "door": [
+   "v1",
+   "warmest; slide then a soft thud at 2.95 s"
+  ],
+  "chapel_bell": [
+   "v4",
+   "one strike, warmest tone, longest ring-out; v2 struck twice"
+  ],
+  "tower": [
+   "v1",
+   "two soft rolls 2.6 s apart (wheels over the tower), warmest"
+  ],
+  "snow_whump": [
+   "v1",
+   "builds like a slide, then settles; all takes were bright so it is low-passed (heard through the glass)"
+  ],
+  "owl": [
+   "v3",
+   "a single hoot, matching 'calls... once'"
+  ]
+ }
+}

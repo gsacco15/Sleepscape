@@ -1,0 +1,350 @@
+<title>The Snowlight Gondola</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..400&family=Karla:wght@400;500;600&display=swap">
+<style>
+  /* Layout: one centered column over a snowy night; a cable crosses the dark and one lit cabin climbs it as the track plays */
+  :root {
+    --night: #0a1019;
+    --night-2: #111a25;
+    --line: #223041;
+    --text: #dfe5ea;
+    --muted: #8c98a5;
+    --lamp: #e0b46e;
+    --lamp-deep: #7f6337;
+    --font-display: "Newsreader", "Iowan Old Style", Georgia, serif;
+    --font-body: "Karla", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+    color-scheme: dark;
+  }
+  html, body { height: 100%; }
+  body {
+    background: var(--night);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  #snow { position: fixed; inset: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+  .wrap {
+    position: relative; z-index: 1;
+    max-width: 520px; margin: 0 auto;
+    padding-left: max(16px, env(safe-area-inset-left, 0px));
+    padding-right: max(16px, env(safe-area-inset-right, 0px));
+    padding-block: 36px 48px;
+    display: flex; flex-direction: column; gap: 28px;
+  }
+  .eyebrow { font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  header { display: flex; flex-direction: column; gap: 8px; text-align: center; }
+  h1 {
+    font-family: var(--font-display); font-weight: 300; font-size: clamp(34px, 9vw, 46px);
+    line-height: 1.05; margin: 0; text-wrap: balance; letter-spacing: -0.01em;
+  }
+  h1 em { font-style: italic; color: var(--lamp); }
+  .meta { color: var(--muted); font-size: 14px; }
+
+  .brief {
+    border-left: 2px solid var(--lamp-deep);
+    padding: 4px 0 4px 14px;
+    display: flex; flex-direction: column; gap: 4px;
+  }
+  .brief .eyebrow { font-size: 11px; }
+  .brief p { margin: 0; font-family: var(--font-display); font-style: italic; font-size: 17px; line-height: 1.45; color: var(--text); }
+
+  .player { display: flex; flex-direction: column; align-items: center; gap: 22px; }
+  .disc {
+    width: 148px; height: 148px; border-radius: 50%;
+    border: 1px solid var(--lamp-deep);
+    background: radial-gradient(circle at 50% 42%, rgba(224,180,110,0.2), rgba(224,180,110,0.04) 62%, transparent 70%);
+    display: grid; place-items: center; cursor: pointer; color: var(--lamp);
+    transition: transform 0.4s ease, border-color 0.4s ease;
+  }
+  .disc:hover { border-color: var(--lamp); }
+  .disc:active { transform: scale(0.97); }
+  .disc:focus-visible { outline: 2px solid var(--lamp); outline-offset: 6px; }
+  .disc svg { width: 46px; height: 46px; fill: currentColor; }
+  .disc.loading { opacity: 0.6; }
+  .status { font-size: 14px; color: var(--muted); min-height: 1.5em; text-align: center; }
+
+  .timeline { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+  .bar { position: relative; height: 28px; cursor: pointer; touch-action: none; }
+  .track-line { position: absolute; left: 0; right: 0; top: 13px; height: 2px; background: var(--line); border-radius: 2px; }
+  .fill { position: absolute; left: 0; top: 13px; height: 2px; background: var(--lamp); border-radius: 2px; width: 0; }
+  .knob {
+    position: absolute; top: 8px; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%;
+    background: var(--lamp); left: 0; box-shadow: 0 0 0 4px rgba(224,180,110,0.15);
+  }
+  .tick { position: absolute; top: 9px; width: 1px; height: 10px; background: var(--muted); opacity: 0.5; }
+  .times { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .alt { font-size: 12px; letter-spacing: 0.06em; }
+  .alt b { font-weight: 500; color: var(--text); }
+
+  .chapters { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; width: 100%; }
+  .chap {
+    background: none; border: 1px solid var(--line); border-radius: 10px; color: var(--text);
+    padding: 10px 4px; font: inherit; font-size: 13px; cursor: pointer;
+    display: flex; flex-direction: column; align-items: center; gap: 2px; min-width: 0;
+  }
+  .chap span { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
+  .chap.on { border-color: var(--lamp-deep); color: var(--lamp); }
+  .chap:focus-visible { outline: 2px solid var(--lamp); outline-offset: 2px; }
+  @media (max-width: 440px) { .chapters { grid-template-columns: repeat(6, 1fr); } .chap { grid-column: span 2; } .chap:nth-child(4) { grid-column: 2 / span 2; } }
+
+  .hint { font-size: 13px; color: var(--muted); text-align: center; }
+
+  section.block { border-top: 1px solid var(--line); padding-top: 20px; display: flex; flex-direction: column; gap: 12px; }
+  section.block h2 { font-family: var(--font-display); font-weight: 400; font-size: 20px; margin: 0; }
+  section.block h3 { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin: 6px 0 0; }
+  .rows { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+  .rows li { display: grid; grid-template-columns: 52px 1fr; gap: 12px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .rows li:last-child { border-bottom: 0; }
+  .rows time, .rows .k { font-variant-numeric: tabular-nums; color: var(--lamp); font-size: 14px; }
+  .rows p { margin: 0; min-width: 0; }
+  .rows p small { display: block; color: var(--muted); font-size: 13px; }
+  .board li { grid-template-columns: 1fr auto; align-items: baseline; }
+  .board .k { color: var(--muted); font-size: 13px; text-align: right; }
+
+  @media (prefers-reduced-motion: reduce) { .disc { transition: none; } }
+</style>
+
+<canvas id="snow" aria-hidden="true"></canvas>
+
+<main class="wrap">
+  <header>
+    <div class="eyebrow">Drift · place journey · test 3</div>
+    <h1>The Snowlight <em>Gondola</em></h1>
+    <div class="meta">Mont-Tremblant at night · 9:45 · voice: Ruth · body-scan wind-down</div>
+  </header>
+
+  <div class="brief">
+    <div class="eyebrow">The ride</div>
+    <p>Wind, snow and soft steps in the village at night. Step into the cabin and the wind goes muffled and safe. Up over the town, into the pines, slower and quieter toward the top. One chapel bell, no music, no breathing sounds.</p>
+  </div>
+
+  <div class="player">
+    <button class="disc" id="play" type="button" aria-label="Play">
+      <svg id="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10.5-6.5z"/></svg>
+    </button>
+    <div class="status" id="status">Tap to begin</div>
+
+    <div class="timeline">
+      <div class="bar" id="bar" role="slider" tabindex="0" aria-label="Position" aria-valuemin="0" aria-valuemax="585" aria-valuenow="0">
+        <div class="track-line"></div>
+        <div class="fill" id="fill"></div>
+        <div class="knob" id="knob"></div>
+      </div>
+      <div class="times"><span id="cur">0:00</span><span class="alt" id="alt" title="Elevation on the ride, from the village to the summit">≈ <b>230</b> m</span><span id="dur">9:45</span></div>
+    </div>
+
+    <div class="chapters" id="chapters">
+      <button class="chap" type="button" data-t="0">Village<span>0:00</span></button>
+      <button class="chap" type="button" data-t="158.4">Cabin<span>2:38</span></button>
+      <button class="chap" type="button" data-t="240.7">The town<span>4:00</span></button>
+      <button class="chap" type="button" data-t="323.8">Pines<span>5:23</span></button>
+      <button class="chap" type="button" data-t="436.6">The top<span>7:16</span></button>
+    </div>
+
+    <div class="hint">Best with headphones, volume low, screen dimmed.</div>
+  </div>
+
+  <section class="block">
+    <h2>What you'll hear</h2>
+    <ul class="rows">
+      <li><time>0:00</time><p>Wind rises over the village, then soft steps in fresh snow</p></li>
+      <li><time>0:05</time><p>The village at night<small>Storybook roofs under snow, old lamps, little lights in the bare trees, a hint of woodsmoke and maple</small></p></li>
+      <li><time>1:03</time><p>The chapel bell, once, far across the snow</p></li>
+      <li><time>2:05</time><p>Boots in the snow again</p></li>
+      <li><time>2:45</time><p>Two steps into the cabin</p></li>
+      <li><time>2:50</time><p>The door slides shut and the wind goes muffled<small>The cable hum comes in underneath</small></p></li>
+      <li><time>2:57</time><p>Body scan in the warm cabin<small>Hands, fingers, shoulders, back, legs</small></p></li>
+      <li><time>3:46</time><p>The cabin sways and begins to rise</p></li>
+      <li><time>4:26</time><p>Rolling over a lift tower</p></li>
+      <li><time>5:23</time><p>Into the pines<small>Forest wind joins, heard through the glass</small></p></li>
+      <li><time>6:12</time><p>Snow slips from a branch</p></li>
+      <li><time>6:51</time><p>An owl, once, deep in the forest</p></li>
+      <li><time>7:16</time><p>Slower and quieter toward the top<small>No more single sounds from here on</small></p></li>
+      <li><time>8:35</time><p>The voice trails off<small>Wind and hum carry on, then fade out by 9:45</small></p></li>
+    </ul>
+  </section>
+
+  <section class="block">
+    <h2>Sound board</h2>
+    <h3>Beds that loop underneath</h3>
+    <ul class="rows board">
+      <li><p>Village wind<small>Soft winter wind and snowfall, outside</small></p><span class="k">0:00–2:50</span></li>
+      <li><p>Muffled wind<small>The same wind through the cabin glass</small></p><span class="k">2:50–end</span></li>
+      <li><p>Cable hum<small>The quiet hum of the moving cabin</small></p><span class="k">2:50–end</span></li>
+      <li><p>Pine wind<small>Wind in the snowy forest, through the glass</small></p><span class="k">5:23–end</span></li>
+    </ul>
+    <h3>Single sounds</h3>
+    <ul class="rows board">
+      <li><p>Footsteps in fresh snow<small>Three different takes so they never repeat</small></p><span class="k">×3</span></li>
+      <li><p>Chapel bell<small>One strike with a long ring-out</small></p><span class="k">×1</span></li>
+      <li><p>Cabin door<small>A slide, then a soft thud</small></p><span class="k">×1</span></li>
+      <li><p>Lift tower<small>Two soft rolls as the wheels pass over</small></p><span class="k">×1</span></li>
+      <li><p>Snow from a branch<small>Softened, as if heard through the glass</small></p><span class="k">×1</span></li>
+      <li><p>Owl<small>A single hoot, far off</small></p><span class="k">×1</span></li>
+    </ul>
+  </section>
+</main>
+
+<audio id="audio" src="snowlight_gondola.mp3" preload="metadata"></audio>
+
+<script>
+(function () {
+  const audio = document.getElementById('audio');
+  const play = document.getElementById('play');
+  const icon = document.getElementById('icon');
+  const status = document.getElementById('status');
+  const bar = document.getElementById('bar');
+  const fill = document.getElementById('fill');
+  const knob = document.getElementById('knob');
+  const cur = document.getElementById('cur');
+  const durEl = document.getElementById('dur');
+  const altEl = document.querySelector('#alt b');
+  const chaps = Array.from(document.querySelectorAll('.chap'));
+  const PLAY = 'M8 5.5v13l10.5-6.5z';
+  const PAUSE = 'M7 5h3.5v14H7zM13.5 5H17v14h-3.5z';
+  const starts = chaps.map(c => parseFloat(c.dataset.t));
+  let total = 585;
+
+  // The ride: waits at the village station, starts rising on "begins to rise" (3:46), slows near the top.
+  const RISE = 226.7, TOP = 515.1, BASE_M = 230, SUMMIT_M = 875;
+  const climb = t => { const x = Math.max(0, Math.min(1, (t - RISE) / (TOP - RISE))); return 1 - (1 - x) * (1 - x); };
+
+  const fmt = s => { s = Math.max(0, Math.floor(s)); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); };
+  const phaseIndex = t => { let i = 0; starts.forEach((s, k) => { if (t >= s) i = k; }); return i; };
+
+  chaps.slice(1).forEach(c => {
+    const tk = document.createElement('div');
+    tk.className = 'tick';
+    tk.style.left = (parseFloat(c.dataset.t) / total * 100) + '%';
+    bar.appendChild(tk);
+  });
+
+  function render() {
+    const t = audio.currentTime || 0;
+    const p = Math.min(1, t / total) * 100;
+    fill.style.width = p + '%';
+    knob.style.left = p + '%';
+    cur.textContent = fmt(t);
+    altEl.textContent = Math.round((BASE_M + (SUMMIT_M - BASE_M) * climb(t)) / 5) * 5;
+    bar.setAttribute('aria-valuenow', Math.round(t));
+    const ph = phaseIndex(t);
+    chaps.forEach((c, k) => c.classList.toggle('on', k === ph));
+    if (!audio.paused) status.textContent = chaps[ph].firstChild.textContent.trim();
+  }
+
+  function setIcon(playing) {
+    icon.firstElementChild.setAttribute('d', playing ? PAUSE : PLAY);
+    play.setAttribute('aria-label', playing ? 'Pause' : 'Play');
+  }
+
+  play.addEventListener('click', () => {
+    if (audio.paused) {
+      play.classList.add('loading');
+      status.textContent = 'Loading…';
+      const pr = audio.play();
+      if (pr && pr.catch) pr.catch(() => { play.classList.remove('loading'); status.textContent = 'Tap again to play'; });
+    } else {
+      audio.pause();
+    }
+  });
+
+  audio.addEventListener('playing', () => { play.classList.remove('loading'); setIcon(true); render(); });
+  audio.addEventListener('pause', () => { setIcon(false); status.textContent = audio.ended ? 'Finished' : 'Paused'; });
+  audio.addEventListener('ended', () => { setIcon(false); status.textContent = 'Finished'; });
+  audio.addEventListener('waiting', () => { status.textContent = 'Loading…'; });
+  audio.addEventListener('timeupdate', render);
+  audio.addEventListener('loadedmetadata', () => { if (isFinite(audio.duration)) { total = audio.duration; durEl.textContent = fmt(total); } });
+  audio.addEventListener('error', () => { play.classList.remove('loading'); status.textContent = 'The track could not load. Reload the page and try again.'; });
+
+  function seekTo(t) { audio.currentTime = Math.max(0, Math.min(total - 0.5, t)); render(); }
+  chaps.forEach(c => c.addEventListener('click', () => { seekTo(parseFloat(c.dataset.t)); if (audio.paused) play.click(); }));
+
+  function seekFromEvent(e) {
+    const r = bar.getBoundingClientRect();
+    const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+    seekTo(Math.max(0, Math.min(1, x / r.width)) * total);
+  }
+  let dragging = false;
+  bar.addEventListener('pointerdown', e => { dragging = true; try { bar.setPointerCapture(e.pointerId); } catch (_) {} seekFromEvent(e); });
+  bar.addEventListener('pointermove', e => { if (dragging) seekFromEvent(e); });
+  bar.addEventListener('pointerup', () => { dragging = false; });
+  bar.addEventListener('pointercancel', () => { dragging = false; });
+  bar.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') { seekTo(audio.currentTime + 10); e.preventDefault(); }
+    if (e.key === 'ArrowLeft') { seekTo(audio.currentTime - 10); e.preventDefault(); }
+  });
+
+  try {
+    if ('mediaSession' in navigator) {
+      navigator.mediaSession.metadata = new MediaMetadata({ title: 'The Snowlight Gondola', artist: 'Drift · place journey', album: 'Sleep journeys' });
+      navigator.mediaSession.setActionHandler('play', () => audio.play());
+      navigator.mediaSession.setActionHandler('pause', () => audio.pause());
+    }
+  } catch (_) {}
+
+  // Night scene: slow snowfall, a dark ridge, and the cable with one lit cabin that climbs with the track
+  const cv = document.getElementById('snow');
+  const ctx = cv.getContext('2d');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let W = 0, H = 0, dpr = 1, flakes = [];
+  function makeFlakes() {
+    const n = Math.round(Math.min(160, Math.max(50, W * H / 9000)));
+    flakes = Array.from({ length: n }, () => {
+      const z = Math.random();
+      return { x: Math.random() * W, y: Math.random() * H, r: 0.5 + z * 1.7, v: 8 + z * 22, a: 0.18 + z * 0.45, ph: Math.random() * 6.28, sw: 4 + Math.random() * 10 };
+    });
+  }
+  function size() {
+    dpr = Math.min(2, window.devicePixelRatio || 1); W = cv.clientWidth; H = cv.clientHeight;
+    cv.width = W * dpr; cv.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0); makeFlakes();
+    if (reduce) frame(performance.now());
+  }
+  const cableA = () => ({ x: -0.04 * W, y: 0.97 * H });
+  const cableB = () => ({ x: 1.04 * W, y: 0.16 * H });
+  function ridge() {
+    ctx.beginPath(); ctx.moveTo(0, H);
+    const pts = [[0, 0.9], [0.18, 0.84], [0.34, 0.74], [0.5, 0.62], [0.63, 0.5], [0.74, 0.36], [0.84, 0.27], [0.92, 0.22], [1, 0.25]];
+    pts.forEach(([px, py]) => ctx.lineTo(px * W, py * H));
+    ctx.lineTo(W, H); ctx.closePath();
+    ctx.fillStyle = 'rgba(17,26,37,0.85)'; ctx.fill();
+  }
+  let last = performance.now();
+  function frame(now) {
+    const dt = Math.min(64, now - last) / 1000; last = now;
+    ctx.clearRect(0, 0, W, H);
+    ridge();
+    const A = cableA(), B = cableB();
+    ctx.strokeStyle = 'rgba(160,176,192,0.16)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.moveTo(A.x, A.y); ctx.lineTo(B.x, B.y); ctx.stroke();
+    // cabin: from the bottom station (8% along the cable) to the top (92%)
+    const f = 0.08 + 0.84 * climb(audio.currentTime || 0);
+    const cx = A.x + (B.x - A.x) * f, cy = A.y + (B.y - A.y) * f + 9;
+    const on = !audio.paused;
+    const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, 34);
+    g.addColorStop(0, 'rgba(224,180,110,' + (on ? 0.32 : 0.18) + ')'); g.addColorStop(1, 'rgba(224,180,110,0)');
+    ctx.fillStyle = g; ctx.fillRect(cx - 34, cy - 34, 68, 68);
+    ctx.strokeStyle = 'rgba(160,176,192,0.3)'; ctx.beginPath(); ctx.moveTo(cx, cy - 9); ctx.lineTo(cx, cy - 4); ctx.stroke();
+    ctx.fillStyle = 'rgba(224,180,110,' + (on ? 0.85 : 0.55) + ')';
+    ctx.beginPath(); ctx.roundRect ? ctx.roundRect(cx - 4, cy - 4, 8, 7, 2) : ctx.rect(cx - 4, cy - 4, 8, 7); ctx.fill();
+    // snowfall
+    for (const s of flakes) {
+      if (!reduce) {
+        s.y += s.v * dt; s.ph += dt * 0.6;
+        if (s.y > H + 4) { s.y = -4; s.x = Math.random() * W; }
+      }
+      const x = s.x + Math.sin(s.ph) * s.sw;
+      ctx.fillStyle = 'rgba(232,238,244,' + s.a + ')';
+      ctx.beginPath(); ctx.arc(x, s.y, s.r, 0, 6.283); ctx.fill();
+    }
+    if (!reduce) requestAnimationFrame(frame);
+  }
+  window.addEventListener('resize', size); size();
+  if (!reduce) requestAnimationFrame(frame);
+  if (reduce) { audio.addEventListener('timeupdate', () => frame(performance.now())); audio.addEventListener('play', () => frame(performance.now())); audio.addEventListener('pause', () => frame(performance.now())); }
+  render();
+})();
+</script>

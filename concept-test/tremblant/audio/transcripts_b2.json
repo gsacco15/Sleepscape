@@ -1,0 +1,37 @@
+{
+ "M3": {
+  "text": "Somewhere, a little snow slips from a branch and falls with a soft hush into the deep white below.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "M4": {
+  "text": "Far across the slopes, the lights of a snow groomer move slowly, a tiny glow crawling through the dark.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "M5": {
+  "text": "Deep in the forest and owl calls once and the woods go quiet again.",
+  "tail_ok": true,
+  "coverage": 0.92
+ },
+ "N1": {
+  "text": "The cabin slows, the snow drifts past the glass, soft and slow.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "N2": {
+  "text": "Higher and quieter and slower still.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "N3": {
+  "text": "Only the wind and the quiet hum carrying you up.",
+  "tail_ok": true,
+  "coverage": 1.0
+ },
+ "N4": {
+  "text": "snow and stillness and the gentle climb.",
+  "tail_ok": true,
+  "coverage": 1.0
+ }
+}
