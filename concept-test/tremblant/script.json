@@ -8,8 +8,7 @@
   "Outside wind crossfades to a muffled copy when the cabin door closes.",
   "Loops have different lengths (30/23/27 s) so they never repeat in step.",
   "Pine wind grows in slowly over 40 s from the end of the town section, so it is already there when the pines are named.",
-  "Lift towers repeat as the cabin climbs, each quieter than the last and a different recording; nothing after 8:12.",
-  "After the voice ends the ride carries on for ~11 min (cabin wind, hum, pine wind) with four very quiet tower passes, then a 2 min fade: a sleep tail."
+  "Lift towers every 90 s from the narrated one (fixed cable speed): quieter through the story, then held very soft through the sleep tail."
  ],
  "voice": {
   "name": "Ruth - Soothing Meditation Guide & ASMR",
@@ -292,26 +291,25 @@
    "id": "M1",
    "phase": "journey",
    "pause_after_sec": 13,
-   "text": "Now the pines close in. Tall and dark, their branches heavy with snow, so close you could almost touch them.",
-   "sfx": [
-    {
-     "id": "tower",
-     "file": "tower_b",
-     "anchor": "line_end",
-     "offset_sec": 3.0,
-     "hit_sec": 0.5,
-     "volume": 0.2,
-     "pan": 0.0,
-     "jitter_sec": 0,
-     "note": "2nd tower, quieter"
-    }
-   ]
+   "text": "Now the pines close in. Tall and dark, their branches heavy with snow, so close you could almost touch them."
   },
   {
    "id": "M2",
    "phase": "journey",
    "pause_after_sec": 14,
-   "text": "The cabin's soft light slides across the snowy branches as you pass... a silver glow, there, and gone."
+   "text": "The cabin's soft light slides across the snowy branches as you pass... a silver glow, there, and gone.",
+   "sfx": [
+    {
+     "id": "tower",
+     "offset_sec": 10.85,
+     "hit_sec": 0.35,
+     "volume": 0.203,
+     "pan": 0.1,
+     "jitter_sec": 0,
+     "note": "tower 2: every 90 s (fixed cable speed)",
+     "file": "tower_b"
+    }
+   ]
   },
   {
    "id": "M3",
@@ -349,17 +347,6 @@
      "pan": 0.5,
      "jitter_sec": 0,
      "note": "hoot 2.5 s before the line, so it's heard, then named"
-    },
-    {
-     "id": "tower",
-     "file": "tower_c",
-     "anchor": "line_end",
-     "offset_sec": 4.0,
-     "hit_sec": 0.5,
-     "volume": 0.175,
-     "pan": 0.0,
-     "jitter_sec": 0,
-     "note": "3rd tower, quieter still"
     }
    ]
   },
@@ -367,7 +354,19 @@
    "id": "N1",
    "phase": "journey",
    "pause_after_sec": 17,
-   "text": "The cabin slows. The snow drifts past the glass... soft... and slow."
+   "text": "The cabin slows. The snow drifts past the glass... soft... and slow.",
+   "sfx": [
+    {
+     "id": "tower",
+     "offset_sec": 10.05,
+     "hit_sec": 0.25,
+     "volume": 0.164,
+     "pan": -0.1,
+     "jitter_sec": 0,
+     "note": "tower 3: every 90 s (fixed cable speed)",
+     "file": "tower_c"
+    }
+   ]
   },
   {
    "id": "N2",
@@ -379,20 +378,7 @@
    "id": "N3",
    "phase": "journey",
    "pause_after_sec": 22,
-   "text": "Only the wind... and the quiet hum... carrying you up.",
-   "sfx": [
-    {
-     "id": "tower",
-     "file": "tower_d",
-     "anchor": "line_end",
-     "offset_sec": 5.0,
-     "hit_sec": 0.5,
-     "volume": 0.165,
-     "pan": 0.0,
-     "jitter_sec": 0,
-     "note": "last tower, very soft"
-    }
-   ]
+   "text": "Only the wind... and the quiet hum... carrying you up."
   },
   {
    "id": "N4",
@@ -402,46 +388,71 @@
    "sfx": [
     {
      "id": "tower",
-     "anchor": "line_end",
-     "offset_sec": 78,
-     "hit_sec": 0.5,
-     "volume": 0.11,
-     "pan": 0.1,
-     "jitter_sec": 0,
-     "note": "sleep tail tower 1"
-    },
-    {
-     "id": "tower",
-     "file": "tower_c",
-     "anchor": "line_end",
-     "offset_sec": 205,
-     "hit_sec": 0.5,
-     "volume": 0.11,
-     "pan": -0.1,
-     "jitter_sec": 0,
-     "note": "sleep tail tower 2"
-    },
-    {
-     "id": "tower",
-     "file": "tower_b",
-     "anchor": "line_end",
-     "offset_sec": 335,
-     "hit_sec": 0.5,
-     "volume": 0.1,
+     "offset_sec": 26.05,
+     "hit_sec": 0.35,
+     "volume": 0.168,
      "pan": 0.15,
      "jitter_sec": 0,
-     "note": "sleep tail tower 3"
+     "note": "tower 4: every 90 s (fixed cable speed)",
+     "file": "tower_d"
     },
     {
      "id": "tower",
-     "file": "tower_d",
-     "anchor": "line_end",
-     "offset_sec": 480,
-     "hit_sec": 0.5,
-     "volume": 0.13,
+     "offset_sec": 116.05,
+     "hit_sec": 0.65,
+     "volume": 0.104,
      "pan": -0.15,
      "jitter_sec": 0,
-     "note": "sleep tail tower 4"
+     "note": "tower 5: every 90 s (fixed cable speed)"
+    },
+    {
+     "id": "tower",
+     "offset_sec": 206.05,
+     "hit_sec": 0.35,
+     "volume": 0.104,
+     "pan": 0.1,
+     "jitter_sec": 0,
+     "note": "tower 6: every 90 s (fixed cable speed)",
+     "file": "tower_b"
+    },
+    {
+     "id": "tower",
+     "offset_sec": 296.05,
+     "hit_sec": 0.25,
+     "volume": 0.107,
+     "pan": -0.1,
+     "jitter_sec": 0,
+     "note": "tower 7: every 90 s (fixed cable speed)",
+     "file": "tower_c"
+    },
+    {
+     "id": "tower",
+     "offset_sec": 386.05,
+     "hit_sec": 0.35,
+     "volume": 0.141,
+     "pan": 0.15,
+     "jitter_sec": 0,
+     "note": "tower 8: every 90 s (fixed cable speed)",
+     "file": "tower_d"
+    },
+    {
+     "id": "tower",
+     "offset_sec": 476.05,
+     "hit_sec": 0.65,
+     "volume": 0.104,
+     "pan": -0.15,
+     "jitter_sec": 0,
+     "note": "tower 9: every 90 s (fixed cable speed)"
+    },
+    {
+     "id": "tower",
+     "offset_sec": 566.05,
+     "hit_sec": 0.35,
+     "volume": 0.104,
+     "pan": 0.1,
+     "jitter_sec": 0,
+     "note": "tower 10: every 90 s (fixed cable speed)",
+     "file": "tower_b"
     }
    ]
   }
